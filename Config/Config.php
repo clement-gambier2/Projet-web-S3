@@ -3,7 +3,7 @@
         static private $databases = array(
             // Le nom d'hote est webinfo a l'IUT
             // ou localhost sur votre machine
-            'hostname' => 'localhost',
+            'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
             // A l'IUT, vous avez une BDD nommee comme votre login
             // Sur votre machine, vous devrez creer une BDD
             'database' => 'gambierc', 
