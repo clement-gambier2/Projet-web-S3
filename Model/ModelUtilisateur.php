@@ -7,48 +7,40 @@ class ModelUtilisateur extends Model{
     protected static $primary = 'idUtilisateur';
     private $idUtilisateur;
     private $pseudo;
-    private $prenom;
-    private $nom;
-    private $mail;
+    private $prenomUtilisateur;
+    private $nomutilisateur;
+    private $mailUtilisateur;
+    private $motDePasseUtilisateur;
 
-    /**
-     * @return mixed
-     */
+
     public function getIdUtilisateur()
     {
         return $this->idUtilisateur;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPseudo()
     {
         return $this->pseudo;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPrenom()
     {
-        return $this->prenom;
+        return $this->prenomUtilisateur;
     }
 
-    /**
-     * @return mixed
-     */
     public function getNom()
     {
-        return $this->nom;
+        return $this->nomutilisateur;
     }
 
-    /**
-     * @return mixed
-     */
     public function getMail()
     {
-        return $this->mail;
+        return $this->mailUtilisateur;
+    }
+
+    public function getMotDePasseUtilisateur()
+    {
+        return $this->motDePasseUtilisateur;
     }
 
 
