@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,17 @@
 
 <body>
 <nav class="menu">
+    <h2>Utilisateurs</h2>
     <ul>
-        <li><a href="index.php?action=readAll&controller=Utilisateur">Utilisateurs</a></li>
-        <li><a href="index.php?action=readAll&controller=Commande">Commande</a></li>
-
+        <li><a href="index.php?action=readAll&controller=Utilisateur">Tout les utilisateurs</a></li>
+        <li><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></li>
     </ul>
+
+
+    <h2>Commandes</h2>
+        <li><a href="index.php?action=readAll&controller=Commande">Toutes les commandes</a></li>
+
+
 </nav>
 
 <?php

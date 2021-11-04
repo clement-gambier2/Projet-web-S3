@@ -31,10 +31,10 @@ class ControllerUtilisateur {
     }
 
     public static function delete(){
-        $login = $_GET["login"];
+        $idUtilisateur = $_GET["idUtilisateur"];
         $tab_uti = ModelUtilisateur::selectAll();
-        if (ModelUtilisateur::delete($login)) {
-            $tab_v = ModelUtilisateur::selectAll();
+        if (ModelUtilisateur::delete($idUtilisateur)) {
+            $tab_uti = ModelUtilisateur::selectAll();
             $controller = self::$object;
             $view = 'deleted';
             $pagetitle = 'Utilisateur supprimé';
@@ -59,10 +59,14 @@ class ControllerUtilisateur {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "login" => $_POST["login"],
-            "nom" => $_POST["nom"],
-            "prenom" => $_POST["prenom"],
+            "idUtilisateur" => $_POST["user_id"],
+            "nomutilisateur" => $_POST["nom"],
+            "prenomUtilisateur" => $_POST["prenom"],
+            "pseudo" => $_POST["pseudo"],
+            "mailUtilisateur" => $_POST["mail"],
+            "motDePasseUtilisateur" => $_POST["motDePasse"]
         );
+        $pseudo = $_POST["pseudo"];
 
         if (ModelUtilisateur::save($data)) {
             $tab_uti = ModelUtilisateur::selectAll();
@@ -90,13 +94,16 @@ class ControllerUtilisateur {
 
     public static function updated(){
         $data = array(
-            "login" => $_POST["login"],
-            "nom" => $_POST["nom"],
-            "prenom" => $_POST["prenom"]
+            "idUtilisateur" => $_POST["user_id"],
+            "nomutilisateur" => $_POST["nom"],
+            "prenomUtilisateur" => $_POST["prenom"],
+            "pseudo" => $_POST["pseudo"],
+            "mailUtilisateur" => $_POST["mail"],
+            "motDePasseUtilisateur" => $_POST["motDePasse"]
         );
-        $login = $_POST["login"];
+        $pseudo = $_POST["pseudo"];
 
-        if (!isset($_POST["nom"]) || !isset($_POST["prenom"]) || !ModelUtilisateur::update($data)) {
+        if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
