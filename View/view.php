@@ -25,6 +25,7 @@
     <h2 style="color:green">Produits</h2>
     <ul>
         <li><a href="index.php?action=readAll&controller=Produit">Tout les produits</a></li>
+        <li><a href="index.php?action=create&controller=Produit">Créer un produit</a></li>
     </ul>
 
 </nav>

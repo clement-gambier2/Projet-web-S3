@@ -43,8 +43,8 @@ class Model {
       $class_name = "Model" . ucfirst($table_name);
       $rep = Model::getPDO()->query("SELECT * FROM ". $table_name );
       $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
-      $tab_voit = $rep->fetchAll();
-      return $tab_voit;
+      $tab = $rep->fetchAll();
+      return $tab;
   }
 
     public static function select($primary_value){
