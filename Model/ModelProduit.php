@@ -8,9 +8,10 @@ class ModelProduit extends Model{
     protected static $primary = 'idProduit';
     private $idProduit;
     private $nomProduit;
+    private $descriptionProduit;
     private $idCategorie;
-    private $description;
     private $prixProduit;
+    private $quantiteProduit;
    
     // Getter générique
     public function get($nom_attribut) {
@@ -27,34 +28,19 @@ class ModelProduit extends Model{
     }
    
     // un constructeur
-    public function __construct($idP = NULL, $n = NULL, $idC = NULL, $d = NULL, $p = NULL) {
-        if (!is_null($idP) && !is_null($n) && !is_null($idC) && !is_null($p)) {
-          // Si aucun de $m, $c et $i sont nuls,
+    public function __construct($idP = NULL, $n = NULL, $d = NULL, $idC = NULL, $p = NULL, $q = NULL) {
+        if (!is_null($idP) && !is_null($n) && !is_null($idC) && !is_null($p) && !is_null($q)) {
+          // Si aucun de $idP, $n, $idC, $p et $q sont nuls,
           // c'est forcement qu'on les a fournis
           // donc on retombe sur le constructeur à 3 arguments
           $this->idProduit = $idP;
-          $this->nom = $n;
+          $this->nomProduit = $n;
+          $this->descriptionProduit = $d;
           $this->idCategorie = $idC;
-          $this->description = $d;
-          $this->prix = $p;
+          $this->prixProduit = $p;
+          $this->quantiteProduit = $q;
         }
     }
-
-    /*
-    // une methode d'affichage.
-    public function afficher() {
-      // À compléter dans le prochain exercice
-
-      echo "Marque $this->marque <br/>";
-      echo "Couleur $this->couleur <br/>";
-      echo "Matricule $this->immatriculation <br/>";
-    }
-    */
-
-
-
-
-
     
 
 }
