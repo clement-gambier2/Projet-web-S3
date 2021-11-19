@@ -58,6 +58,48 @@ class ModelCommande extends Model{
         return $tab;
     }
 
+    public static function delete($primary_value){
+        $table_name = 'ProduitsCommande';
+        $primary_key = static::$primary;
+        try
+        {
+            $sql = "DELETE FROM " . $table_name . " WHERE " .$primary_key . "= :value";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "value" => $primary_value
+            );
+
+            $req_prep->execute($values);
+        }
+        catch(PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
+
+
+        $table_name = static::$object;
+        try
+        {
+            $sql = "DELETE FROM " . $table_name . " WHERE " .$primary_key . "= :value";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "value" => $primary_value
+            );
+
+            $req_prep->execute($values);
+        }
+        catch(PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
+
+        return true;
+    }
+
 
 }
 

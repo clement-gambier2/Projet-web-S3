@@ -16,8 +16,10 @@
 
 
     <h2>Commandes</h2>
+    <ul>
         <li><a href="index.php?action=readAll&controller=Commande">Toutes les commandes</a></li>
-
+        <li><a href="index.php?action=readAll&controller=Commande">Créer une commande</a></li>
+    </ul>
 
 </nav>
 

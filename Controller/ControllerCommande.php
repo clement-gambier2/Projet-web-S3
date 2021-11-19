@@ -34,14 +34,14 @@ class ControllerCommande {
     }
 
     public static function delete(){
-        $login = $_GET["login"];
+        $idCommande = $_GET["idCommande"];
         $tab_uti = ModelUtilisateur::selectAll();
-        if (ModelUtilisateur::delete($login)) {
-            $tab_v = ModelUtilisateur::selectAll();
+        if (ModelCommande::delete($idCommande)) {
+            $tab_com = ModelCommande::selectAll();
 
             $controller = self::$object;
             $view = 'deleted';
-            $pagetitle = 'Utilisateur supprimé';
+            $pagetitle = 'Commande supprimé';
             require_once File::build_path(array("view", "view.php"));
         }
         else {
