@@ -1,20 +1,22 @@
 <?php
-require_once File::build_path(array("Model","ModelUtilisateur.php"));
-class ControllerUtilisateur {
+require_once File::build_path(array("Model","ModelCommande.php"));
+
+class ControllerCommande {
     protected static $object = "commande";
 
 
     public static function readAll() {
-        $tab_uti = ModelUtilisateur::selectAll();     //appel au modèle pour gerer la BD
+        $tab_com = ModelCommande::selectAll();     //appel au modèle pour gerer la BD
         $controller = static::$object;
-        $view = "listCommande";
-        $pagetitle = "Commandes de l'utilisateur";
-        $list = File::build_path(array("view","view.php"));
+        $view = "list";
+        $pagetitle = "Commandes des users";
+        $list = File::build_path(array("View","view.php"));
         require $list;
     }
 
     public static function read(){
-        $l = ModelUtilisateur::select($_GET['login']);
+        $idC = $_GET['idCommande'];
+        $l = ModelCommande::getAllProduits($idC);
         if(!$l){
             $controller = static::$object;
             $view = "error";
@@ -32,14 +34,14 @@ class ControllerUtilisateur {
     }
 
     public static function delete(){
-        $login = $_GET["login"];
+        $idCommande = $_GET["idCommande"];
         $tab_uti = ModelUtilisateur::selectAll();
-        if (ModelUtilisateur::delete($login)) {
-            $tab_v = ModelUtilisateur::selectAll();
+        if (ModelCommande::delete($idCommande)) {
+            $tab_com = ModelCommande::selectAll();
 
             $controller = self::$object;
             $view = 'deleted';
-            $pagetitle = 'Utilisateur supprimé';
+            $pagetitle = 'Commande supprimé';
             require_once File::build_path(array("view", "view.php"));
         }
         else {

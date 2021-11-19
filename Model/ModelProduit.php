@@ -1,16 +1,16 @@
 <?php
-    require_once File::build_path(Array("model", "Model.php"));
+    require_once File::build_path(Array("Model", "Model.php"));
 
 class ModelProduit extends Model{
 
 
-    protected static $object = 'produit';
+    protected static $object = 'Produit';
     protected static $primary = 'idProduit';
     private $idProduit;
-    private $nom;
+    private $nomProduit;
     private $idCategorie;
     private $description;
-    private $prix;
+    private $prixProduit;
    
     // Getter générique
     public function get($nom_attribut) {
@@ -52,25 +52,7 @@ class ModelProduit extends Model{
     */
 
 
-    
-    public function save(){
 
-        $sql = "INSERT INTO Produit (idProduit, nomProduit, descriptionProduit, idCategorie, prix) VALUES(:idP, :n, :d, :idC, :p)";
-
-        $rep_prep = Model::getPDO()->prepare($sql);
-
-        $values = array(
-            "idP" => $this->idProduit,
-            "n" => $this->nom,
-            "d" => $this->description,
-            "idC" => $this->idCategorie,
-            "p" => $this->prix,
-        );
-
-        $rep_prep->execute($values);
-
-
-    }
 
 
     
