@@ -1,0 +1,82 @@
+#welcome{
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6px );
+    -webkit-backdrop-filter: blur( 6px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding: 100px 100px;
+    margin-bottom: 50px;
+}
+#welcome-numbers{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 100px;
+}
+#welcome-header{
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.title{
+    font-size:75px;
+}
+
+.welcome-card{
+    margin-right: 50px;
+}
+
+.button{
+    background-color:white;
+    padding: 15px 50px;
+    margin: 20px 20px;
+    color:black;
+    text-align: center;
+    width:100px;
+    filter: drop-shadow(0 0 0.75rem white);
+}
+
+#popular{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+}
+.card{
+    margin: 20px;
+    color:black;
+    padding: 5px 5px;
+
+    filter: drop-shadow(0 0 0.75rem white);
+
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6px );
+    -webkit-backdrop-filter: blur( 6px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+}
+
+.nft{
+    width: 200px;
+    height: 200px;
+}
+
+.profil{
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.picture-profil{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+

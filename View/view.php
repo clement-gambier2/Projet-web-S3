@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title><?php echo $pagetitle; ?></title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
+
+<nav>
+    <h1>NFT Factory</h1>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Creators</a></li>
+        <li><a href="#">Activity</a></li>
+        <li><a href="#">Community</a></li>
+        <li><a href="/admin.php">Administrator</a></li>
+    </ul>
+</nav>
 
 <body>
 
-<nav class="menu" style="border: 2px solid green;padding-left:2em;">
-    
-    <h2 style="color:blue">Utilisateurs</h2>
-    <ul>
-        <li><a href="index.php?action=readAll&controller=Utilisateur">Tout les utilisateurs</a></li>
-        <li><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></li>
-    </ul>
 
-
-    <h2 style="color:green">Produits</h2>
-    <ul>
-        <li><a href="index.php?action=readAll&controller=Produit">Tout les produits</a></li>
-        <li><a href="index.php?action=create&controller=Produit">Créer un produit</a></li>
-    </ul>
-  
-    <h2 style="color:orange">Commandes</h2>
-    <ul>
-        <li><a href="index.php?action=readAll&controller=Commande">Toutes les commandes</a></li>
-        <li><a href="index.php?action=readAll&controller=Commande">Créer une commande</a></li>
-    </ul>
-
-</nav>
 
 <?php
     // Si $controleur='voiture' et $view='list',
@@ -38,7 +32,12 @@
     require $filepath;
 ?>
 
-<p style="border: 1px solid black;text-align:right;padding-right:1em;"> NFT factory </p>
+
 </body>
+
+<footer>
+    <p>Made by Sylvain Batte, Clément Gambier and Thomas Mauran</p>
+    <p>2021</p>
+</footer>
 
 </html>
