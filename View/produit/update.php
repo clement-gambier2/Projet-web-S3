@@ -18,7 +18,7 @@
     <fieldset>
         <legend>Création d'un produit</legend>
 
-        <input type="hidden" name='action' value='created'>
+        <input type="hidden" name='action' value='updated'>
         <input type="hidden" name='controller' value='produit'>
 
         <!-- Faire en sorte qu'il s'autoincrémente au lieu de le remplir à la main-->

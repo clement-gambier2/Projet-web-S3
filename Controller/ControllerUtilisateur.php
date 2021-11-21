@@ -1,5 +1,7 @@
 <?php
 require_once File::build_path(array("Model","ModelUtilisateur.php"));
+require_once File::build_path(array("Lib","Security.php"));
+
 class ControllerUtilisateur {
     protected static $object = "utilisateur";
 
@@ -64,11 +66,17 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => $_POST["motDePasse"]
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
         );
         $pseudo = $_POST["pseudo"];
 
-        if (ModelUtilisateur::save($data)) {
+        if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
+            $controller = self::$object;
+            $view = 'errorMdp';
+            $pagetitle = 'Erreur mot de passe';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (ModelUtilisateur::save($data)) {
             $tab_uti = ModelUtilisateur::selectAll();
             $controller = self::$object;
             $view = 'created';
@@ -99,18 +107,24 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => $_POST["motDePasse"]
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
         );
         $pseudo = $_POST["pseudo"];
 
-        if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
+        if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
+            $controller = self::$object;
+            $view = 'errorMdp';
+            $pagetitle = 'Erreur mot de passe';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
             require_once File::build_path(array("View", "view.php"));
         }
 
-        $tab_uti = ModelUtilisateur::selectAll();
+        $tab_p = ModelUtilisateur::selectAll();
         $controller = self::$object;
         $view = 'updated';
         $pagetitle = "Utilisateur modifié";
