@@ -124,7 +124,7 @@ class ControllerUtilisateur {
             require_once File::build_path(array("View", "view.php"));
         }
 
-        $tab_p = ModelUtilisateur::selectAll();
+        $tab_uti = ModelUtilisateur::selectAll();
         $controller = self::$object;
         $view = 'updated';
         $pagetitle = "Utilisateur modifié";
