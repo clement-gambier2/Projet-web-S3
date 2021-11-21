@@ -33,13 +33,13 @@ class ModelCommande extends Model{
             $this->dateCommande = $dateCommande;
         }
     }
-
+    /*
     public static function getAllProduits($primary_value){
         $table_name = "Produit";
         $class_name = "Model" . ucfirst($table_name);
 
-        $sql = "SELECT p.idProduit, p.nomProduit, p.descriptionProduit, p.idCategorie, p.prixProduit, p.quantiteProduit 
-                FROM ". $table_name . " p 
+        $sql = "SELECT p.idProduit, p.nomProduit, p.descriptionProduit, p.idCategorie, p.prixProduit, p.quantiteProduit
+                FROM ". $table_name . " p
                 JOIN ProduitsCommande pc ON p.idProduit = pc.idProduit
                 JOIN Commande c ON pc.idCommande = c.idCommande
                 WHERE c.idCommande = :value";
@@ -57,6 +57,7 @@ class ModelCommande extends Model{
 
         return $tab;
     }
+    */
 
     public static function delete($primary_value){
         $table_name = 'ProduitsCommande';
@@ -97,6 +98,77 @@ class ModelCommande extends Model{
             return false;
         }
 
+        return true;
+    }
+
+
+    public static function saveCommande($idUtilisateur , $product){
+        $table_name = 'Commande';
+
+        try
+        {
+            $values = array(
+                "id" => $idUtilisateur,
+            );
+
+            $sql = "INSERT INTO " .  $table_name ."(`idCommande`, `idUtilisateur`, `dateCommande`)VALUES (NULL, :id , CURRENT_TIMESTAMP)";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep->execute($values);
+
+
+
+
+
+        }
+        catch(PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+    public static function saveProduitsCommande($idUtilisateur , $product){
+
+        $table_name = 'ProduitsCommande';
+
+
+        try
+        {
+            $values = array(
+                "id" => $idUtilisateur,
+            );
+
+            $idCommande = NULL;
+            $sql = "SELECT * FROM Commande WHERE idUtilisateur = :id AND dateCommande = (SELECT max(dateCommande) FROM Commande WHERE idUtilisateur = :id)";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep->execute($values);
+
+            $class_name = "ModelCommande";
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+            $commandeTab = $req_prep->fetchAll();
+            $commande = $commandeTab[0];
+
+            $values = array(
+                "idC" => $commande->get('idCommande'),
+                "p" => $product,
+
+            );
+            $sql = "INSERT INTO " .  $table_name ."(`idCommande`, `idProduit`) VALUES (:idC , :p)";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep->execute($values);
+
+
+        }
+        catch(PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
         return true;
     }
 

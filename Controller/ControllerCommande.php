@@ -16,7 +16,7 @@ class ControllerCommande {
 
     public static function read(){
         $idC = $_GET['idCommande'];
-        $l = ModelCommande::getAllProduits($idC);
+        $l = ModelProduit::getAllProduits($idC);
         if(!$l){
             $controller = static::$object;
             $view = "error";
@@ -35,7 +35,7 @@ class ControllerCommande {
 
     public static function delete(){
         $idCommande = $_GET["idCommande"];
-        $tab_uti = ModelUtilisateur::selectAll();
+        $tab_com = ModelCommande::selectAll();
         if (ModelCommande::delete($idCommande)) {
             $tab_com = ModelCommande::selectAll();
 
@@ -53,35 +53,44 @@ class ControllerCommande {
     }
 
     public static function create(){
+        $tab_prod = ModelProduit::selectAll();
+        $tab_utilisateur = ModelUtilisateur::selectAll();
         $controller = static::$object;
         $view = "update";
-        $pagetitle = "Créer un utilisateur";
+        $pagetitle = "Créer une commande";
         $action = "create";
         require File::build_path(array("view","view.php"));
     }
 
     public static function created(){
 
-        //récupérer les donnés de la voiture à partir de la query string
-        $data = array(
-            "login" => $_POST["login"],
-            "nom" => $_POST["nom"],
-            "prenom" => $_POST["prenom"],
-        );
+        $data = array();
+        $produits = $_GET['produit'];
+        $idUtilisateur = $_GET['idUser'];
 
-        if (ModelUtilisateur::save($data)) {
-            $tab_uti = ModelUtilisateur::selectAll();
+
+        if(isset($produits)){
+            ModelCommande::saveCommande($idUtilisateur, $data);
+
+            foreach($produits as $p){
+                ModelCommande::saveProduitsCommande($idUtilisateur, $p);
+            }
+            $tab_com = ModelCommande::selectAll();
             $controller = self::$object;
             $view = 'created';
-            $pagetitle = 'Utilisateur créé';
-            require_once File::build_path(array("view", "view.php"));
+            $pagetitle = 'Nouvelle commande enregistrée';
+            require_once File::build_path(array("View", "view.php"));
         }
+
         else {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
-            require_once File::build_path(array("view", "view.php"));
+            require_once File::build_path(array("View", "view.php"));
         }
+
+
+
     }
 
     public static function update(){
