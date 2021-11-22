@@ -131,6 +131,14 @@ class ControllerUtilisateur {
         require_once File::build_path(array("View", "view.php"));
     }
 
+    public static function connect(){
+        $controller = static::$object;
+        $view = "connect";
+        $pagetitle = "Se connecter à un compte";
+        $action = "connect";
+        require_once File::build_path(array("View","view.php"));
+    }
+
 }
 
 
