@@ -17,7 +17,7 @@
         <li><a href="#">Creators</a></li>
         <li><a href="#">Activity</a></li>
         <li><a href="#">Community</a></li>
-        <li><a href="/admin.php">Administrator</a></li>
+        <li><a href="index.php?action=afficher&controller=Admin">Administrator</a></li>
     </ul>
 </nav>
 

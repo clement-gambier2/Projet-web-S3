@@ -47,50 +47,50 @@ require_once File::build_path(array("Controller", "routeur.php"));
 
 
         <div class="card">
-            <img src="/ressources/NFT/drawing/face.jpeg" alt="" class="nft"/>
+            <img src="ressources/NFT/drawing/face.jpeg" alt="" class="nft"/>
             <p>Drawing</p>
             <div class="picture-profil">
-                <img src="/ressources/profile.png" class="profil"">
+                <img src="ressources/profile.png" class="profil"">
                 <p>Jungle</p>
             </div>
             <div class="button">Add to cart</div>
         </div>
 
         <div class="card">
-            <img src="/ressources/NFT/drawing/girl_guy.jpg.webp" alt="" class="nft"/>
+            <img src="ressources/NFT/drawing/girl_guy.jpg.webp" alt="" class="nft"/>
             <p>Drawing</p>
             <div class="picture-profil">
-                <img src="/ressources/profile.png" class="profil"">
+                <img src="ressources/profile.png" class="profil"">
                 <p>Jungle</p>
             </div>
             <div class="button">Add to cart</div>
         </div>
 
         <div class="card">
-            <img src="p_web_s3/ressources/NFT/drawing/road.jpeg" alt="" class="nft"/>
+            <img src="ressources/NFT/drawing/road.jpeg" alt="" class="nft"/>
             <p>Drawing</p>
             <div class="picture-profil">
-                <img src="/ressources/profile.png" class="profil"">
+                <img src="ressources/profile.png" class="profil"">
                 <p>Jungle</p>
             </div>
             <div class="button">Add to cart</div>
         </div>
 
         <div class="card">
-            <img src="/ressources/NFT/drawing/squid.png.webp" alt="" class="nft"/>
+            <img src="ressources/NFT/drawing/squid.png.webp" alt="" class="nft"/>
             <p>Drawing</p>
             <div class="picture-profil">
-                <img src="/ressources/profile.png" class="profil"">
+                <img src="ressources/profile.png" class="profil"">
                 <p>Jungle</p>
             </div>
             <div class="button">Add to cart</div>
         </div>
 
         <div class="card">
-            <img src="/ressources/NFT/drawing/woman.jpeg" alt="" class="nft"/>
+            <img src="ressources/NFT/drawing/woman.jpeg" alt="" class="nft"/>
             <p>Drawing</p>
             <div class="picture-profil">
-                <img src="/ressources/profile.png" class="profil"">
+                <img src="ressources/profile.png" class="profil"">
                 <p>Jungle</p>
             </div>
             <div class="button">Add to cart</div>
