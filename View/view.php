@@ -12,7 +12,7 @@
 <nav>
     <h1>NFT Factory</h1>
     <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="#">Marketplace</a></li>
         <li><a href="#">Creators</a></li>
         <li><a href="#">Activity</a></li>
