@@ -14,6 +14,10 @@ class ModelUtilisateur extends Model{
 
     public static function checkPassword($login, $mdp_hache) {
         // faire une requête qui va checker dans la bdd si il couple $login $mdp existe
+        $requete = Model::getPDO()->query('SELECT * FROM Utilisateur WHERE pseudo= "' . $login . '" AND motDePasseUtilisateur="' . $mdp_hache . '"');
+        $requete->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
+
+        return $requete->fetchAll() != '';
     }
 
     // Getter générique

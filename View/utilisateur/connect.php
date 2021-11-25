@@ -12,7 +12,7 @@
 
         <p>
             <label for="motDePasse">Mot de passe :</label>
-            <input type="text" placeholder="Mot de passe" name="motDePasse" id="motDePasse"  required/>
+            <input type="password" placeholder="Mot de passe" name="motDePasse" id="motDePasse"  required/>
         </p>
 
 
