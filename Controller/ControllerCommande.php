@@ -16,6 +16,8 @@ class ControllerCommande {
 
     public static function read(){
         $idC = $_GET['idCommande'];
+        $idU = $_GET['idUtilisateur'];
+
         $l = ModelProduit::getAllProduits($idC);
         if(!$l){
             $controller = static::$object;
@@ -35,7 +37,7 @@ class ControllerCommande {
 
     public static function delete(){
         $idCommande = $_GET["idCommande"];
-        $tab_com = ModelCommande::selectAll();
+        $tab_com = ModelProduit::selectAll();
         if (ModelCommande::delete($idCommande)) {
             $tab_com = ModelCommande::selectAll();
 
@@ -58,7 +60,7 @@ class ControllerCommande {
         $controller = static::$object;
         $view = "update";
         $pagetitle = "Créer une commande";
-        $action = "create";
+        $action = "created";
         require File::build_path(array("view","view.php"));
     }
 
@@ -94,34 +96,44 @@ class ControllerCommande {
     }
 
     public static function update(){
+        $tab_prod = ModelProduit::selectAll();
+
         $controller = static::$object;
+        $idCommande = $_GET['idCommande'];
+        $idUtilisateur = $_GET['idUtilisateur'];
+
+        $tab_produitChecked = ModelProduit::getAllProduits($idCommande);
         $view = "update";
-        $pagetitle = "Mettre à jour un utilisateur";
-        $action = "update";
+        $pagetitle = "Mettre à jour une commande";
+        $action = "updated";
         $upd = File::build_path(array("view","view.php"));
         require $upd;
     }
 
     public static function updated(){
-        $data = array(
-            "login" => $_POST["login"],
-            "nom" => $_POST["nom"],
-            "prenom" => $_POST["prenom"]
-        );
-        $login = $_POST["login"];
 
-        if (!isset($_POST["nom"]) || !isset($_POST["prenom"]) || !ModelUtilisateur::update($data)) {
+
+
+
+
+        if (!isset($_GET['idCommande']) | !isset($_GET['idUser']) |!isset($_GET['idCommande'])) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
             require_once File::build_path(array("view", "view.php"));
         }
+        else{
+            $idCommande = $_GET['idCommande'];
+            $produits = $_GET['produit'];
+            $idUtilisateur = $_GET['idUser'];
 
-        $tab_uti = ModelUtilisateur::selectAll();
-        $controller = self::$object;
-        $view = 'updated';
-        $pagetitle = "Utilisateur modifié";
-        require_once File::build_path(array("view", "view.php"));
+            ModelCommande::updateCommande($idCommande, $produits, $idUtilisateur);
+
+            $tab_com = ModelCommande::selectAll();     //appel au modèle pour gerer la BD
+            static::readAll();
+        }
+
+
     }
 
 }

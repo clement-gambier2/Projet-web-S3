@@ -152,6 +152,10 @@ class ModelCommande extends Model{
             $commandeTab = $req_prep->fetchAll();
             $commande = $commandeTab[0];
 
+
+
+
+
             $values = array(
                 "idC" => $commande->get('idCommande'),
                 "p" => $product,
@@ -172,6 +176,50 @@ class ModelCommande extends Model{
         return true;
     }
 
+    public static function updateCommande($idCommande, $data, $idUtilisateur){
+
+        $table_name = 'ProduitsCommande';
+        $primary_key = static::$primary;
+        try
+        {
+
+            if(isset($data)){
+                $sql = "DELETE FROM " . $table_name . " WHERE idCommande = :value";
+                $req_prep = Model::getPDO()->prepare($sql);
+
+                $values = array(
+                    "value" => $idCommande
+                );
+
+                $req_prep->execute($values);
+
+                foreach($data as $p){
+                    $values = array(
+                        "idC" => $idCommande,
+                        "p" => $p,
+                    );
+
+                    $sql = "INSERT INTO " .  $table_name ."(`idCommande`, `idProduit`) VALUES (:idC , :p)";
+                    $req_prep = Model::getPDO()->prepare($sql);
+                    $req_prep->execute($values);
+                }
+            }
+            else{
+                static::delete($idCommande);
+            }
+
+        }
+        catch(PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
+
+
+
+
+    }
 
 }
 
