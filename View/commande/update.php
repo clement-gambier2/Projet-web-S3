@@ -8,6 +8,7 @@
         if($action == "updated"){
             $pseudo = $idUtilisateur;
             echo "<option value='$pseudo'>$pseudo</option>";
+
         }
         else{
             foreach ($tab_utilisateur as $utilisateur) {
