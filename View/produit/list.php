@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/readAll.css">
+<main>
 <table>
     <thead>
     <tr>
@@ -23,12 +24,10 @@
             <td ><a href="index.php?action=delete&controller=Produit&idProduit=<?php echo $p->get('idProduit')?>">❌</a></td>
         </tr>
     <?php } ?>
-        <tr>
-            <td><a href="index.php?action=create&controller=Produit">Créer un produit</a></td>
-        </tr>
     </tbody>
 </table>
-
+<div class="button"><a href="index.php?action=create&controller=Produit">Créer un produit</a></div>
+</main>
 
 
 
