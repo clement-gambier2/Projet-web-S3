@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array("Model","ModelUtilisateur.php"));
+
 class ControllerUtilisateur {
     protected static $object = "utilisateur";
 

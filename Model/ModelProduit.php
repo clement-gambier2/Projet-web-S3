@@ -41,8 +41,31 @@ class ModelProduit extends Model{
           $this->quantiteProduit = $q;
         }
     }
-    
 
+
+    public static function getAllProduits($primary_value){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+
+        $sql = "SELECT p.idProduit, p.nomProduit, p.descriptionProduit, p.idCategorie, p.prixProduit, p.quantiteProduit 
+                FROM ". $table_name . " p 
+                JOIN ProduitsCommande pc ON p.idProduit = pc.idProduit
+                JOIN Commande c ON pc.idCommande = c.idCommande
+                WHERE c.idCommande = :value";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+        $values = array(
+            "value" => $primary_value,
+        );
+
+        $req_prep->execute($values);
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        $tab = $req_prep->fetchAll();
+
+        return $tab;
+    }
 }
 
 ?>
