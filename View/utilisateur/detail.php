@@ -1,5 +1,5 @@
 <?php
-
+    /*
     $idurl = rawurlencode($l->get('idUtilisateur'));
     $pseudo = rawurlencode($l->get('idUtilisateur'));
     echo '<p> Pseudo :  ' . $l->get('pseudo') . '</p>';
@@ -12,5 +12,6 @@
     echo '</p> <a href="index.php?action=delete&&idUtilisateur='. $idurl .' "> Supprimer l\'utilisateur </a>';
 
     echo '</p> <a href="index.php?controller=Utilisateur&&action=update&&idUtilisateur='. $idurl .'&&pseudo='. $pseudo .' "> Modifier l\'utilisateur </a>';
+    */
 ?>
 

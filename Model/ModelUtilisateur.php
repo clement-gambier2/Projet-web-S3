@@ -8,16 +8,20 @@ class ModelUtilisateur extends Model{
     private $idUtilisateur;
     private $pseudo;
     private $prenomUtilisateur;
-    private $nomutilisateur;
+    private $nomUtilisateur;
     private $mailUtilisateur;
     private $motDePasseUtilisateur;
 
     public static function checkPassword($login, $mdp_hache) {
-        // faire une requête qui va checker dans la bdd si il couple $login $mdp existe
-        $requete = Model::getPDO()->query('SELECT * FROM Utilisateur WHERE pseudo= "' . $login . '" AND motDePasseUtilisateur="' . $mdp_hache . '"');
-        $requete->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
+        $requete = Model::getPDO()->query('SELECT idUtilisateur FROM Utilisateur WHERE pseudo= "' . $login . '" AND motDePasseUtilisateur="' . $mdp_hache . '"');
 
-        return $requete->fetchAll() != '';
+        return $requete->fetchColumn() != false;
+    }
+
+    public static function isAdmin($login) {
+        $requete = Model::getPDO()->query('SELECT isAdmin FROM Utilisateur WHERE pseudo= "' . $login . '"');
+
+        return $requete->fetchColumn() == 1;
     }
 
     // Getter générique
