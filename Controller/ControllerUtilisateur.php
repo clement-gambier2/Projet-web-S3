@@ -1,5 +1,8 @@
 <?php
 require_once File::build_path(array("Model","ModelUtilisateur.php"));
+require_once File::build_path(array("Lib","Security.php"));
+require_once File::build_path(array("Lib","Session.php"));
+
 
 class ControllerUtilisateur {
     protected static $object = "utilisateur";
@@ -60,16 +63,22 @@ class ControllerUtilisateur {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "idUtilisateur" => $_POST["user_id"],
-            "nomutilisateur" => $_POST["nom"],
-            "prenomUtilisateur" => $_POST["prenom"],
-            "pseudo" => $_POST["pseudo"],
-            "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => $_POST["motDePasse"]
+            "idUtilisateur" => $_GET["user_id"],
+            "nomutilisateur" => $_GET["nom"],
+            "prenomUtilisateur" => $_GET["prenom"],
+            "pseudo" => $_GET["pseudo"],
+            "mailUtilisateur" => $_GET["mail"],
+            "motDePasseUtilisateur" => Security::hacher($_GET["motDePasse"])
         );
-        $pseudo = $_POST["pseudo"];
+        $pseudo = $_GET["pseudo"];
 
-        if (ModelUtilisateur::save($data)) {
+        if ($_GET["motDePasse"] != $_GET["verifMotDePasse"]) {
+            $controller = self::$object;
+            $view = 'errorMdp';
+            $pagetitle = 'Erreur mot de passe';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (ModelUtilisateur::save($data)) {
             $tab_uti = ModelUtilisateur::selectAll();
             $controller = self::$object;
             $view = 'created';
@@ -85,12 +94,22 @@ class ControllerUtilisateur {
     }
 
     public static function update(){
-        $controller = static::$object;
-        $view = "update";
-        $pagetitle = "Mettre à jour un utilisateur";
-        $action = "update";
-        $upd = File::build_path(array("View","view.php"));
-        require $upd;
+
+        if (Session::is_user($_GET['pseudo'])) {
+            $controller = static::$object;
+            $view = "update";
+            $pagetitle = "Mettre à jour un utilisateur";
+            $action = "update";
+            $upd = File::build_path(array("View","view.php"));
+            require $upd;
+        } else {
+            echo "Veuillez vous connecter :";
+            $controller = self::$object;
+            $view = 'connect';
+            $pagetitle = 'Page de connexion';
+            require_once File::build_path(array("View", "utilisateur", "connect.php"));
+        }
+
     }
 
     public static function updated(){
@@ -100,11 +119,17 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => $_POST["motDePasse"]
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
         );
         $pseudo = $_POST["pseudo"];
 
-        if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
+        if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
+            $controller = self::$object;
+            $view = 'errorMdp';
+            $pagetitle = 'Erreur mot de passe';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
@@ -118,6 +143,41 @@ class ControllerUtilisateur {
         require_once File::build_path(array("View", "view.php"));
     }
 
+    public static function connect(){
+        $controller = static::$object;
+        $view = "connect";
+        $pagetitle = "Se connecter à un compte";
+        $action = "connect";
+        require_once File::build_path(array("View","view.php"));
+    }
+
+    public static function connected(){
+            if (!isset($_GET['pseudo']) || !isset($_GET['motDePasse'])) {
+                $controller = self::$object;
+                $view = 'error';
+                $pagetitle = 'Erreur de connexion';
+                require_once File::build_path(array("View", "view.php"));
+            }
+
+            $pseudo = $_GET['pseudo'];
+            $mdp = Security::hacher($_GET['motDePasse']);
+
+            if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
+                $_SESSION['login'] = $pseudo;
+                $controller = self::$object;
+                $view = 'detail';
+                $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                require_once File::build_path(array("View", "view.php"));
+            }
+    }
+
+    public static function deconnect() {
+        session_unset();
+        $controller = self::$object;
+        $view = 'detail';
+        $pagetitle = 'Déconnexion réussie';
+        require_once File::build_path(array("View", "view.php"));
+    }
 }
 
 

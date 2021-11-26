@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 
+
 <nav>
     <h1>NFT Factory</h1>
     <ul>
@@ -17,6 +18,8 @@
         <li><a href="#">Creators</a></li>
         <li><a href="#">Activity</a></li>
         <li><a href="#">Community</a></li>
+        <li><a href="index.php?action=connect&controller=Utilisateur">Se connecter</a></li>
+        <li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>
         <li><a href="index.php?action=afficher&controller=Admin">Administrator</a></li>
     </ul>
 </nav>
@@ -31,6 +34,12 @@
     // alors $filepath="/chemin_du_site/view/voiture/list.php"
     $filepath = File::build_path(array("View", $controller, "$view.php"));
     require $filepath;
+
+    if (isset($_SESSION['login'])) {
+        echo "Utilisateur connecté : " . $_SESSION['login'];
+    } else {
+        echo "Pas d'utilisateur connecté";
+    }
 ?>
 
 
