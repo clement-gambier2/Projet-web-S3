@@ -12,11 +12,9 @@
 <nav>
     <h1>NFT Factory</h1>
     <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li><a href="#">Marketplace</a></li>
         <li><a href="#">Creators</a></li>
-        <li><a href="#">Activity</a></li>
-        <li><a href="#">Community</a></li>
         <li><a href="index.php?action=afficher&controller=Admin">Administrator</a></li>
     </ul>
 </nav>
