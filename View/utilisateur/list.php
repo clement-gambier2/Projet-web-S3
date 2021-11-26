@@ -20,7 +20,7 @@
                 <td><?php echo htmlspecialchars($v->getMail())?></td>
                 <td><?php echo htmlspecialchars($v->getMotDePasseUtilisateur())?></td>
                 <td ><a href="">🖋</a></td>
-                <td ><a href="">❌</a></td>
+                <td ><a href="index.php?action=delete&controller=Utilisateur&idUtilisateur=<?php echo $v->getIdUtilisateur()?>">❌</a></td>
             </tr>
         <?php } ?>
         <tr>
