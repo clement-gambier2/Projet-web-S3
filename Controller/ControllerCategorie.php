@@ -38,11 +38,11 @@ class ControllerCategorie {
     }
 
     public static function create(){
-        $controller='produit';
+        $controller='categorie';
         $tab_categorie = ModelCategorie::selectAll();
         $view='update';
         $action = "created";
-        $pagetitle='Création d\'un produit';
+        $pagetitle='Création d\'une categorie';
 
         require_once File::build_path(array("View", "view.php"));
     }
@@ -51,14 +51,11 @@ class ControllerCategorie {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "nomProduit" => $_POST["nomProduit"],
-            "descriptionProduit" => $_POST["descriptionProduit"],
-            "idCategorie" => $_POST["idCategorie"],
-            "prixProduit" => $_POST["prixProduit"],
-            "quantiteProduit" => $_POST["quantiteProduit"]
+            "nomCategorie" => $_POST["nomCategorie"],
+
         );
-        if (ModelProduit::save($data)) {
-            $tab_p = ModelProduit::selectAll();
+        if (ModelCategorie::save($data)) {
+            $tab_cat = ModelCategorie::selectAll();
             $controller = self::$object;
             $view = 'created';
             $pagetitle = 'Produit créé';
@@ -74,54 +71,60 @@ class ControllerCategorie {
 
 
     public static function delete() {
-        $idP = $_GET['idProduit'];
+        $idC= $_GET['idCategorie'];
 
-        $p = ModelProduit::select($idP);
-        $p -> delete($idP);
+        try {
+            $c = ModelCategorie::select($idC);
+            $c -> delete($idC);
 
-        $tab_p = ModelProduit::selectAll();
+            $tab_cat = ModelCategorie::selectAll();
 
-        $controller='produit';
-        $view='deleted';
-        $pagetitle='Supprimer un produit';
-        require_once File::build_path(array("view", "produit", "deleted.php"));
+            $controller = self::$object;
+            $view='deleted';
+            $pagetitle='Supprimer une categorie';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        catch (PDOException $e) {
+            if (Config::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+
     }
 
     public static function update(){
         $controller = static::$object;
         $idCategorie = $_GET['idCategorie'];
         $tab_categorie = ModelCategorie::selectAll();
+        $action = "updated";
 
         $view = "update";
         $pagetitle = "Mise à jour d'un produit";
-        $action = "updated";
         require_once File::build_path(array("View","view.php"));
     }
 
     public static function updated(){
 
-        $nomProduit = $_POST['nomProduit'];
+        $nomCategorie = $_POST['nomCategorie'];
 
         $data = array(
-            "idProduit" => $_POST['idProduit'],
-            "nomProduit" => $nomProduit,
-            "descriptionProduit" => $_POST['descriptionProduit'],
             "idCategorie" => $_POST['idCategorie'],
-            "prixProduit" => $_POST['prixProduit'],
-            "quantiteProduit" => $_POST['quantiteProduit'],
-            "lienImage" => $_POST['lienImage']
+            "nomCategorie" => $_POST['nomCategorie'],
 
         );
 
 
-        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !isset($_POST["lienImage"]) || !ModelProduit::update($data)) {
+        if (!isset($_POST["nomCategorie"]) || !ModelCategorie::update($data)) {
             $controller = self::$object;
             $view = 'error';
-            $pagetitle = 'Une erreur est survenue en updatant le produit';
+            $pagetitle = 'Une erreur est survenue en updatant la catégorie';
             require_once File::build_path(array("View", "view.php"));
         }
 
-        $tab_p = ModelProduit::selectAll();
+        $tab_cat = ModelCategorie::selectAll();
         $controller = self::$object;
         $view = 'updated';
         $pagetitle = "Le produit à été modifié";
