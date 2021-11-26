@@ -42,7 +42,6 @@ class ModelProduit extends Model{
         }
     }
 
-
     public static function getAllProduits($primary_value){
         $table_name = static::$object;
         $class_name = "Model" . ucfirst($table_name);

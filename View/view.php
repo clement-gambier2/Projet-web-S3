@@ -16,9 +16,6 @@
         <li><a href="index.php">Home</a></li>
         <li><a href="#">Marketplace</a></li>
         <li><a href="#">Creators</a></li>
-        <li><a href="#">Activity</a></li>
-        <li><a href="#">Community</a></li>
-
         <?php
         if (isset($_SESSION['login'])) {
             if ($_SESSION['admin'] == 1) {

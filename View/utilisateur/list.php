@@ -26,6 +26,9 @@
                 <td ><a href="index.php?controller=utilisateur&action=delete&idUtilisateur=<?php echo $idurl ?>"> ❌ </a></td>
             </tr>
         <?php } ?>
+        <tr>
+            <td><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></td>
+        </tr>
     </tbody>
 </table>
 
