@@ -1,0 +1,81 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background: rgb(246,77,27);
+    background: linear-gradient(to right, #ad5389, #3c1053) fixed;
+    height: 100%;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 20px;
+}
+
+nav{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display:flex;
+    align-items: center;
+}
+nav h1{
+    margin-right: 300px;
+    font-family: 'Fira Mono', monospace;
+}
+
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+nav ul li {
+    list-style: none;
+}
+nav ul li a{
+    color: #fff;
+    text-decoration: none;
+    margin: 20px 20px;
+}
+
+
+
+/* UTILE */
+h2{
+    font-family: 'Fira Mono', monospace;
+    color: black;
+}
+
+.button{
+    background-color:white;
+    padding: 15px 50px;
+    margin: 20px 20px;
+    color:black;
+    text-align: center;
+    width:100px;
+    filter: drop-shadow(0 0 0.75rem white);
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.glass{
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6px );
+    -webkit-backdrop-filter: blur( 6px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );    
+    padding: 100px 100px;
+    margin-bottom: 50px;
+}
+
+
+
+footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
