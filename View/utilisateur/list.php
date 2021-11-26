@@ -12,15 +12,18 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($tab_uti as $v) { ?>
+        <?php foreach ($tab_uti as $u) {
+            $idurl = rawurlencode($u->get('idUtilisateur'));
+            $pseudo = rawurlencode($u->get('pseudo'));
+            ?>
             <tr>
-                <td><?php echo htmlspecialchars($v->getPseudo())?></td>
-                <td><?php echo htmlspecialchars($v->getPrenom())?></td>
-                <td><?php echo htmlspecialchars($v->getNom())?></td>
-                <td><?php echo htmlspecialchars($v->getMail())?></td>
-                <td><?php echo htmlspecialchars($v->getMotDePasseUtilisateur())?></td>
-                <td ><a href="">🖋</a></td>
-                <td ><a href="">❌</a></td>
+                <td><?php echo htmlspecialchars($u->get('pseudo'))?></td>
+                <td><?php echo htmlspecialchars($u->get('prenomUtilisateur'))?></td>
+                <td><?php echo htmlspecialchars($u->get('nomUtilisateur'))?></td>
+                <td><?php echo htmlspecialchars($u->get('mailUtilisateur'))?></td>
+                <td><?php echo htmlspecialchars($u->get('motDePasseUtilisateur'))?></td>
+                <td ><a href="index.php?controller=utilisateur&action=update&idUtilisateur=<?php echo $idurl ?>&pseudo=<?php echo $pseudo ?>">🖋</a></td>
+                <td ><a href="index.php?controller=utilisateur&action=delete&idUtilisateur=<?php echo $idurl ?>"> ❌ </a></td>
             </tr>
         <?php } ?>
     </tbody>

@@ -164,9 +164,23 @@ class ControllerUtilisateur {
 
             if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
                 $_SESSION['login'] = $pseudo;
+
+                if (ModelUtilisateur::isAdmin($pseudo)) {
+                    $_SESSION['admin'] = 1;
+                }
+                else {
+                    $_SESSION['admin'] = 0;
+                }
+
                 $controller = self::$object;
                 $view = 'detail';
                 $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                require_once File::build_path(array("View", "view.php"));
+            }
+            else {
+                $controller = self::$object;
+                $view = 'error';
+                $pagetitle = 'Mauvais mot de passe';
                 require_once File::build_path(array("View", "view.php"));
             }
     }
