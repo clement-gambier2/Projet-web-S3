@@ -1,12 +1,12 @@
 <?php
-require_once File::build_path(Array("Model", "ModelProduit.php"));
+require_once File::build_path(Array("Model", "ModelCategorie.php"));
 
 class ControllerCategorie {
 
     protected static $object = 'categorie';
 
     public static function readAll() {
-        $tab_p = ModelProduit::selectAll();     //appel au modèle pour gerer la BD
+        $tab_cat = ModelCategorie::selectAll();     //appel au modèle pour gerer la BD
 
         $controller = static::$object;
         $view = 'list';
@@ -18,7 +18,7 @@ class ControllerCategorie {
 
     public static function read(){
 
-        $p = ModelCategorie::select($_GET['idProduit']); //on récupère le produit
+        $p = ModelProduit::select($_GET['idProduit']); //on récupère le produit
         $controller = static::$object;
 
         if ($p == null) { //si il est null on retourne une erreur
@@ -39,9 +39,11 @@ class ControllerCategorie {
 
     public static function create(){
         $controller='produit';
+        $tab_categorie = ModelCategorie::selectAll();
         $view='update';
         $action = "created";
         $pagetitle='Création d\'un produit';
+
         require_once File::build_path(array("View", "view.php"));
     }
 
@@ -87,7 +89,9 @@ class ControllerCategorie {
 
     public static function update(){
         $controller = static::$object;
-        $idProduit = $_GET['idProduit'];
+        $idCategorie = $_GET['idCategorie'];
+        $tab_categorie = ModelCategorie::selectAll();
+
         $view = "update";
         $pagetitle = "Mise à jour d'un produit";
         $action = "updated";

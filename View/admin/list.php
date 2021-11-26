@@ -23,5 +23,12 @@
             <div class="button"><a href="index.php?action=readAll&controller=Commande">Acceder</a></div>
         </article>
 
+        <article class="glass2">
+            <h2>Categories</h2>
+            <p>Lorem Ipsum is simply dummy</p>
+            <img src="ressources/undraw/orders.svg" alt="">
+            <div class="button"><a href="index.php?action=readAll&controller=Categorie">Acceder</a></div>
+        </article>
+
     </section>
 </main>
