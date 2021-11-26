@@ -26,10 +26,7 @@
         <?php } ?>
     </tbody>
 </table>
-
     <div class="button"><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></div>
-
-
 </main>
 
 

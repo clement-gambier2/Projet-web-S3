@@ -3,17 +3,17 @@
         static private $databases = array(
             // Le nom d'hote est webinfo a l'IUT
             // ou localhost sur votre machine
-            'hostname' => 'localhost',
+            'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
             // A l'IUT, vous avez une BDD nommee comme votre login
             // Sur votre machine, vous devrez creer une BDD
             'database' => 'gambierc',
             // A l'IUT, c'est votre login
             // Sur votre machine, vous avez surement un compte 'root'
-            'login' => 'root',
+            'login' => 'gambierc',
             // A l'IUT, c'est votre mdp (INE par defaut)
             // Sur votre machine personelle, vous avez creez ce mdp a l'installation
-            'password' => 'root'
-          );      
+            'password' => 'pazdit-cExpy7-boxgow'
+        );
           // la variable debug est un boolean
         static private $debug = True; 
         
