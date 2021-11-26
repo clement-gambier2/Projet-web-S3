@@ -66,16 +66,16 @@ class ControllerUtilisateur {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "idUtilisateur" => $_GET["user_id"],
-            "nomutilisateur" => $_GET["nom"],
-            "prenomUtilisateur" => $_GET["prenom"],
-            "pseudo" => $_GET["pseudo"],
-            "mailUtilisateur" => $_GET["mail"],
-            "motDePasseUtilisateur" => Security::hacher($_GET["motDePasse"])
+            "idUtilisateur" => $_POST["user_id"],
+            "nomutilisateur" => $_POST["nom"],
+            "prenomUtilisateur" => $_POST["prenom"],
+            "pseudo" => $_POST["pseudo"],
+            "mailUtilisateur" => $_POST["mail"],
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
         );
-        $pseudo = $_GET["pseudo"];
+        $pseudo = $_POST["pseudo"];
 
-        if ($_GET["motDePasse"] != $_GET["verifMotDePasse"]) {
+        if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
             $controller = self::$object;
             $view = 'errorMdp';
             $pagetitle = 'Erreur mot de passe';
