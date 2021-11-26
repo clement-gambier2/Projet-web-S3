@@ -11,7 +11,7 @@
 
 
 <nav>
-    <h1>NFT Factory</h1>
+    <a href="index.php"><h1>NFT Factory</h1></a>
     <ul>
         <li><a href="index.php">Home</a></li>
         <li><a href="#">Marketplace</a></li>
