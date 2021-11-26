@@ -21,15 +21,12 @@
     }
 ?>
 
-
+<link rel="stylesheet" href="css/form.css">
 <form method="post" class="glass2" action="/p_web_s3/index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=Produit">
     <fieldset>
-        <legend>Création d'un produit</legend>
-
-
+        <h2>Création d'un produit</h2>
         <input type="hidden" name='action' value='<?php echo $action; ?>' />
         <input type="hidden" name='idProduit' value='<?php echo $idProduit; ?>' />
-
         <input type="hidden" name='controller' value='produit'>
 
 
@@ -60,9 +57,11 @@
         </p>
 
 
-        <p>
-            <input type="submit" value="Envoyer" />
-        </p>
+        <div id="send">
+            <p>
+                <input type="submit" value="Envoyer" id="submit" />
+            </p>
+        </div>
     </fieldset>
 </form>
 </form>

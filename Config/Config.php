@@ -14,7 +14,7 @@
             // Sur votre machine personelle, vous avez creez ce mdp a l'installation
             'password' => 'pazdit-cExpy7-boxgow'
         );
-        // la variable debug est un boolean
+
         static private $debug = True; 
         
         static public function getDebug() {

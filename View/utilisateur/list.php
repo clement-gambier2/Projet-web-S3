@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/readAll.css">
+<main>
 <table>
     <thead>
         <tr>
@@ -26,12 +27,10 @@
                 <td ><a href="index.php?controller=utilisateur&action=delete&idUtilisateur=<?php echo $idurl ?>"> ❌ </a></td>
             </tr>
         <?php } ?>
-        <tr>
-            <td><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></td>
-        </tr>
     </tbody>
 </table>
-
+    <div class="button"><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></div>
+</main>
 
 
 
