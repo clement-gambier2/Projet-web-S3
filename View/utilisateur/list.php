@@ -19,10 +19,13 @@
                 <td><?php echo htmlspecialchars($v->getNom())?></td>
                 <td><?php echo htmlspecialchars($v->getMail())?></td>
                 <td><?php echo htmlspecialchars($v->getMotDePasseUtilisateur())?></td>
-                <td ><a href="">🖋</a></td>
-                <td ><a href="">❌</a></td>
+                <td ><a href="index.php?action=update&controller=Utilisateur&idUtilisateur=<?php echo $v->getIdUtilisateur()?>">🖋</a></td>
+                <td ><a href="index.php?action=delete&controller=Utilisateur&idUtilisateur=<?php echo $v->getIdUtilisateur()?>">❌</a></td>
             </tr>
         <?php } ?>
+        <tr>
+            <td><a href="index.php?action=create&controller=Utilisateur">Créer un utilisateur</a></td>
+        </tr>
     </tbody>
 </table>
 

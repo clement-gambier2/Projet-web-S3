@@ -1,7 +1,10 @@
 <?php
 require_once File::build_path(array("Model","ModelUtilisateur.php"));
+
 require_once File::build_path(array("Lib","Security.php"));
 require_once File::build_path(array("Lib","Session.php"));
+
+
 
 
 class ControllerUtilisateur {

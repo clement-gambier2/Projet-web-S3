@@ -21,6 +21,21 @@ fieldset{
 fieldset p{
     display: flex;
     flex-direction: column;
-
+    margin: 20px 20px;
 }
 
+#send{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#submit{
+    padding:20px 20px;
+    border-radius:20px;
+    width: 150px;
+    text-align: center;
+    border: 2px floralwhite;
+    background: linear-gradient(to right, #ad5389, #3c1053);
+    color: white;
+}

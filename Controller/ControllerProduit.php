@@ -39,38 +39,37 @@ class ControllerProduit {
 
     public static function create(){
         $controller='produit';
-        $view='create';
+        $view='update';
+        $action = "created";
         $pagetitle='Création d\'un produit';
         require_once File::build_path(array("View", "view.php"));
     }
 
     public static function created(){
 
-        $data = array (
-            "idProduit" => $_GET['idProduit'], 
-            "nomProduit" => $_GET['nomProduit'],
-            "descriptionProduit" => $_GET['descriptionProduit'],
-            "idCategorie" => $_GET['idCategorie'],
-            "prixProduit" => $_GET['prixProduit'],
-            "quantiteProduit" => $_GET['quantiteProduit']
+        //récupérer les donnés de la voiture à partir de la query string
+        $data = array(
+            "nomProduit" => $_POST["nomProduit"],
+            "descriptionProduit" => $_POST["descriptionProduit"],
+            "idCategorie" => $_POST["idCategorie"],
+            "prixProduit" => $_POST["prixProduit"],
+            "quantiteProduit" => $_POST["quantiteProduit"]
         );
-
         if (ModelProduit::save($data)) {
             $tab_p = ModelProduit::selectAll();
-
-            $controller='produit';
-            $view='created';
-            $pagetitle='Liste des produits';
-            require_once File::build_path(array("view", "view.php"));
-        } else {
+            $controller = self::$object;
+            $view = 'created';
+            $pagetitle = 'Produit créé';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
             require_once File::build_path(array("View", "view.php"));
         }
-    
-        
     }
+
 
     public static function delete() {
         $idP = $_GET['idProduit'];
@@ -88,9 +87,10 @@ class ControllerProduit {
 
     public static function update(){
         $controller = static::$object;
+        $idProduit = $_GET['idProduit'];
         $view = "update";
         $pagetitle = "Mise à jour d'un produit";
-        $action = "update";
+        $action = "updated";
         require_once File::build_path(array("View","view.php"));
     }
 
