@@ -1,7 +1,4 @@
 <link rel="stylesheet" href="css/readAll.css">
-<main>
-
-
 <table>
     <thead>
     <tr>
@@ -28,5 +25,3 @@
     </tbody>
 </table>
 
-<div class="button"><a href="index.php?action=create&controller=Produit">Créer une commande</a></div>
-</main>
