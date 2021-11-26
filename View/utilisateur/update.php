@@ -22,10 +22,18 @@
     }
 ?>
 
+
+
+
+
 <link rel="stylesheet" href="css/form.css">
 <form method="post" class="glass2" action="/p_web_s3/index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=<?php echo static::$object ?>">
+
     <fieldset>
         <h2>Création ou mise à jour de l'utilisateur</h2>
+
+        <input type="hidden" name='action' value='<?php echo ($action == "create") ? 'created' : 'updated' ?>'>
+        <input type="hidden" name='controller' value='utilisateur'>
 
         <p>
             <label for="user_id">IdUtilisateur</label>
@@ -53,8 +61,14 @@
         </p>
 
         <p>
-            <label for="motDePasse">Mot de passe</label>
-            <input type="text" placeholder="mot de passe sécurisé" name="motDePasse" id="motDePasse" value="<?php echo $motDePasseUtilisateur; ?>" required/>
+            <label for="motDePasse">Mot de passe</label> :
+            <input type="password" placeholder="mot de passe sécurisé" name="motDePasse" id="motDePasse" value="<?php echo $motDePasseUtilisateur; ?>" required/>
+        </p>
+
+        <p>
+            <label for="motDePasse">Valider mot de passe</label> :
+            <input type="password" placeholder="mot de passe sécurisé" name="verifMotDePasse" id="verifMotDePasse" value="<?php echo $motDePasseUtilisateur; ?>" required/>
+
         </p>
 
         <div id="send">
