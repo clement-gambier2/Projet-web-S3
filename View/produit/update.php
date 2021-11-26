@@ -26,8 +26,10 @@
     <fieldset>
         <legend>Création d'un produit</legend>
 
+
         <input type="hidden" name='action' value='<?php echo $action; ?>' />
         <input type="hidden" name='idProduit' value='<?php echo $idProduit; ?>' />
+
         <input type="hidden" name='controller' value='produit'>
 
 

@@ -45,8 +45,6 @@ class ControllerProduit {
         require_once File::build_path(array("View", "view.php"));
     }
 
-
-
     public static function created(){
 
         //récupérer les donnés de la voiture à partir de la query string
@@ -97,23 +95,27 @@ class ControllerProduit {
     }
 
     public static function updated(){
-        $data = array(
-            "idProduit" => $_POST["idProduit"],
-            "nomProduit" => $_POST["nomProduit"],
-            "descriptionProduit" => $_POST["descriptionProduit"],
-            "idCategorie" => $_POST["idCategorie"],
-            "prixProduit" => $_POST["prixProduit"],
-            "quantiteProduit" => $_POST["quantiteProduit"]
-        );
 
-        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !ModelUtilisateur::update($data)) {
+        $nomProduit = $_GET['nomProduit'];
+
+        $data = array(
+            "idProduit" => $_GET['idProduit'], 
+            "nomProduit" => $nomProduit,
+            "descriptionProduit" => $_GET['descriptionProduit'],
+            "idCategorie" => $_GET['idCategorie'],
+            "prixProduit" => $_GET['prixProduit'],
+            "quantiteProduit" => $_GET['quantiteProduit']
+        );
+        
+
+        if (!isset($_GET["idProduit"]) || !isset($_GET["nomProduit"]) || !isset($_GET["descriptionProduit"]) || !isset($_GET["idCategorie"]) || !isset($_GET["prixProduit"]) || !isset($_GET["quantiteProduit"]) || !ModelProduit::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue en updatant le produit';
             require_once File::build_path(array("View", "view.php"));
         }
 
-        $tab_uti = ModelUtilisateur::selectAll();
+        $tab_p = ModelProduit::selectAll();
         $controller = self::$object;
         $view = 'updated';
         $pagetitle = "Le produit à été modifié";

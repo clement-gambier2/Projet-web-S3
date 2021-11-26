@@ -42,7 +42,6 @@ class ModelProduit extends Model{
         }
     }
 
-
     public static function getAllProduits($primary_value){
         $table_name = static::$object;
         $class_name = "Model" . ucfirst($table_name);
@@ -66,24 +65,6 @@ class ModelProduit extends Model{
 
         return $tab;
     }
-
-    /*
-    // une methode d'affichage.
-    public function afficher() {
-      // À compléter dans le prochain exercice
-
-      echo "Marque $this->marque <br/>";
-      echo "Couleur $this->couleur <br/>";
-      echo "Matricule $this->immatriculation <br/>";
-    }
-    */
-
-
-
-
-
-    
-
 }
 
 ?>
