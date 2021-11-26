@@ -29,7 +29,7 @@
 
         <p>
             <label for="user_id">IdUtilisateur</label>
-            <input type="text" placeholder="clem_g" name="user_id" id="user_id" value="<?php echo htmlspecialchars($idUtilisateur); ?>" <?php if($action == 'update')  ?> readonly/>
+            <input type="text" placeholder="clem_g" name="user_id" id="user_id" value="<?php echo htmlspecialchars($idUtilisateur); ?>"readonly/>
         </p>
 
         <p>

@@ -1,7 +1,7 @@
 <?php
-    $idProduit = $_GET["idProduit"];
 
-    if($idProduit != ""){
+
+    if(isset($idProduit)){
         require_once File::build_path(Array("Model", "ModelProduit.php"));
         $produit = ModelProduit::select($idProduit);
 
@@ -11,22 +11,26 @@
         $prix = htmlspecialchars($produit->get('prixProduit'));
         $quantite = htmlspecialchars($produit->get('quantiteProduit'));
     }
+    else{
+        $idProduit =
+        $nom = "";
+        $description = "";
+        $categorie = "";
+        $prix = "";
+        $quantite = "";
+    }
 ?>
 
 
-<form>
+<form method="post" class="glass2" action="/p_web_s3/index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=Produit">
     <fieldset>
         <legend>Création d'un produit</legend>
 
-        <input type="hidden" name='action' value='created'>
+        <input type="hidden" name='action' value='<?php echo $action; ?>' />
+        <input type="hidden" name='idProduit' value='<?php echo $idProduit; ?>' />
         <input type="hidden" name='controller' value='produit'>
 
-        <!-- Faire en sorte qu'il s'autoincrémente au lieu de le remplir à la main-->
-        <p>
-            <label for="idProduit">Id du Produit</label> :
-            <input type="text" placeholder="5" name="idProduit" id="idProduit" value="<?php echo $idProduit; ?>" readonly>
-        </p>
-        
+
 
         <p>
             <label for="nomProduit">Nom du produit :</label>
