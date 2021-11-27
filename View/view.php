@@ -14,10 +14,13 @@
     <a href="index.php"><h1>NFT Factory</h1></a>
     <ul>
         <li><a href="index.php">Home</a></li>
-        <li><a href="#">Marketplace</a></li>
+        <li><a href="index.php?action=marketPlace&controller=Utilisateur">Marketplace</a></li>
         <li><a href="#">Creators</a></li>
         <?php
         if (isset($_SESSION['login'])) {
+
+            echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier" src="ressources/panier.png" alt=""></a></li>';
+
             if ($_SESSION['admin'] == 1) {
                 echo $_SESSION['login'];
                 echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';
@@ -33,6 +36,8 @@
         }
 
         ?>
+
+
     </ul>
 </nav>
 

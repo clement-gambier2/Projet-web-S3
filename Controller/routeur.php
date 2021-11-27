@@ -3,6 +3,7 @@ require_once File::build_path(array("Controller", "ControllerUtilisateur.php"));
 require_once File::build_path(array("Controller", "ControllerCommande.php"));
 require_once File::build_path(array("Controller", "ControllerProduit.php"));
 require_once File::build_path(array("Controller", "ControllerAdmin.php"));
+require_once File::build_path(array("Controller", "ControllerCategorie.php"));
 
 $action = "home";
 if(isset($_GET["action"])) $action = $_GET["action"];
