@@ -6,7 +6,7 @@ require_once 'Lib/File.php';
 require_once File::build_path(array("Controller", "routeur.php"));
 ?>
     <link rel="stylesheet" href="css/home.css">
-    <section id="welcome">
+    <section id="welcome" class="glass">
 
         <article id="welcome-header">
             <div>

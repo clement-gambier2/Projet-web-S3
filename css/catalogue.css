@@ -1,0 +1,46 @@
+.card{
+    margin: 20px;
+    color:black;
+    padding: 5px 5px;
+    filter: drop-shadow(0 0 0.75rem white);
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6px );
+    -webkit-backdrop-filter: blur( 6px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+img{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.picture-profil{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.profil{
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+.nft{
+    width: 200px;
+    height: 200px;
+}
+
+main{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+
