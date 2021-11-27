@@ -188,6 +188,47 @@ class ControllerUtilisateur {
             }
     }
 
+    public static function marketPlace() {
+        $controller = static::$object;
+        $view = "marketPlace";
+        $pagetitle = "Market place";
+
+        $tab_prod = ModelProduit::selectAll();
+
+        require_once File::build_path(array("View","view.php"));
+    }
+
+    public static function afficherPanier() {
+        $controller = static::$object;
+        $view = "panier";
+        $pagetitle = "Panier";
+
+        require_once File::build_path(array("View","view.php"));
+    }
+
+
+
+    public static function ajouterAuPanier(){
+        if(empty($_SESSION['panier'])){
+            $_SESSION['panier'] = array();
+        }
+
+        $p = ModelProduit::select($_GET['idProduit']);
+        array_push($_SESSION['panier'], serialize($p));
+
+        echo "produit ajouté au panier !";
+
+        $controller = static::$object;
+        $view = "marketPlace";
+        $pagetitle = "Market place";
+
+        $tab_prod = ModelProduit::selectAll();
+
+        require_once File::build_path(array("View","view.php"));
+
+
+    }
+
     public static function deconnect() {
         session_unset();
         $controller = self::$object;

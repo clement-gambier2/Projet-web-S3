@@ -26,7 +26,7 @@
 ?>
 
 <link rel="stylesheet" href="css/form.css">
-<form method="post" class="glass2" action=" index.php?action=<?php echo $action ?>&controller=Produit">
+<form method="post" class="glass2" action="index.php?action=<?php echo $action ?>&controller=Produit">
     <fieldset>
         <h2>Création d'un produit</h2>
         <input type="hidden" name='action' value='<?php echo $action; ?>' />
