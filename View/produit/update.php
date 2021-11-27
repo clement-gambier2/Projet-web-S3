@@ -28,7 +28,16 @@
 <link rel="stylesheet" href="css/form.css">
 <form method="post" class="glass2" action="index.php?action=<?php echo $action ?>&controller=Produit">
     <fieldset>
-        <h2>Création d'un produit</h2>
+        <?php
+        if($action == "created"){
+            echo "<h1>Creation d'un produit</h1>";
+
+        }
+        else{
+            echo "<h1>Modification d'un produit</h1>";
+
+        }
+        ?>
         <input type="hidden" name='action' value='<?php echo $action; ?>' />
         <input type="hidden" name='idProduit' value='<?php echo $idProduit; ?>' />
         <input type="hidden" name='controller' value='produit'>

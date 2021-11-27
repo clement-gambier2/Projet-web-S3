@@ -30,7 +30,7 @@
 <form method="post" class="glass2" action="index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=<?php echo static::$object ?>">
 
     <fieldset>
-        <h2>Création ou mise à jour de l'utilisateur</h2>
+            <h2>Création ou mise à jour de l'utilisateur</h2>
 
         <input type="hidden" name='action' value='<?php echo ($action == "create") ? 'created' : 'updated' ?>'>
         <input type="hidden" name='controller' value='utilisateur'>
