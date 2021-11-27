@@ -20,7 +20,7 @@
             <td><?php echo htmlspecialchars($p->get('idCategorie'))?></td>
             <td><?php echo htmlspecialchars($p->get('prixProduit'))?></td>
             <td><?php echo htmlspecialchars($p->get('quantiteProduit'))?></td>
-            <td ><a href="index.php?action=update&controller=Produit&idProduit=<?php echo $p->get('idProduit')?>">🖋</a></td>
+            <td ><a href="index.php?action=update&controller=Produit&idProduit=<?php echo $p->get('idProduit')?>&idCategorie=<?php echo $p->get('idCategorie')?>">🖋</a></td>
             <td ><a href="index.php?action=delete&controller=Produit&idProduit=<?php echo $p->get('idProduit')?>">❌</a></td>
         </tr>
     <?php } ?>

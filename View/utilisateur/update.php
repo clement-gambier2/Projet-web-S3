@@ -14,11 +14,11 @@
         require_once File::build_path(Array("Model", "ModelUtilisateur.php"));
         $utilisateur = ModelUtilisateur::select($idUtilisateur);
 
-        $nom = htmlspecialchars($utilisateur->getNom());
-        $prenom = htmlspecialchars($utilisateur->getPrenom());
-        $pseudo = htmlspecialchars($utilisateur->getPseudo());
-        $mailUtilisateur = htmlspecialchars($utilisateur->getMail());
-        $motDePasseUtilisateur = htmlspecialchars($utilisateur->getMotDePasseUtilisateur());
+        $nom = htmlspecialchars($utilisateur->get('nomUtilisateur'));
+        $prenom = htmlspecialchars($utilisateur->get('prenomUtilisateur'));
+        $pseudo = htmlspecialchars($utilisateur->get('pseudoUtilisateur'));
+        $mailUtilisateur = htmlspecialchars($utilisateur->get('mailUtilisateur'));
+        $motDePasseUtilisateur = htmlspecialchars($utilisateur->get('motDePasseUtilisateur'));
     }
 ?>
 
@@ -27,18 +27,14 @@
 
 
 <link rel="stylesheet" href="css/form.css">
-<form method="post" class="glass2" action="/p_web_s3/index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=<?php echo static::$object ?>">
+<form method="post" class="glass2" action="index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=<?php echo static::$object ?>">
 
     <fieldset>
-        <h2>Création ou mise à jour de l'utilisateur</h2>
+            <h2>Création ou mise à jour de l'utilisateur</h2>
 
         <input type="hidden" name='action' value='<?php echo ($action == "create") ? 'created' : 'updated' ?>'>
         <input type="hidden" name='controller' value='utilisateur'>
 
-        <p>
-            <label for="user_id">IdUtilisateur</label>
-            <input type="text" placeholder="clem_g" name="user_id" id="user_id" value="<?php echo htmlspecialchars($idUtilisateur); ?>"readonly/>
-        </p>
 
         <p>
             <label for="immat_id">Nom</label>
