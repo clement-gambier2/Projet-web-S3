@@ -3,7 +3,7 @@
     $idP = rawurldecode($p->get('idProduit'));
     $nomProduit = rawurldecode($p->get('nomProduit'));
     $description = rawurldecode($p->get('description'));
-    $categorie  = rawurldecode($p->get('idCategorie'));
+    $nomCategorie = (new ModelCategorie)->getNomCategorie($idP);
     $prix = rawurldecode($p->get('prixProduit'));
     $quantiteProduit = rawurldecode($p->get('quantiteProduit'));
     $lienImage = rawurldecode($p->get('lienImage'));
@@ -21,7 +21,7 @@
     <div>
         <h2>Détails : </h2>
         <p> Description : <?php echo $description ?> </p>
-        <p> Categorie : <?php echo $categorie ?> </p>
+        <p> Categorie : <?php echo $nomCategorie ?> </p>
         <p>  Prix : <?php echo $prix ?>€ </p>
         <p> Quantité en stock : <?php echo $quantiteProduit ?></p>
     </div>

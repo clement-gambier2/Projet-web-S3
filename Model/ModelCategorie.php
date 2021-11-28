@@ -18,6 +18,23 @@ class ModelCategorie extends Model{
         return false;
     }
 
+    //Getter pour avoir le nom de la catégorie
+    public function getNomCategorie($idCategorie){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+        $rep = Model::getPDO()->query("SELECT nomCategorie 
+        FROM Categorie
+        WHERE idCategorie = " . $idCategorie);
+        $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        $categorie = $rep->fetchColumn();
+
+        if (empty($categorie))
+            return false;
+        return $categorie;
+    }
+
+
+
     // Setter générique
     public function set($nom_attribut, $valeur) {
         if (property_exists($this, $nom_attribut))

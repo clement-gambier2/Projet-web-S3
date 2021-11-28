@@ -2,11 +2,13 @@
 require_once File::build_path(Array("Model", "ModelProduit.php"));
 require_once File::build_path(Array("Model", "ModelCategorie.php"));
 
-class ControllerProduit {
+class ControllerProduit
+{
 
     protected static $object = 'produit';
 
-    public static function readAll() {
+    public static function readAll()
+    {
         $tab_p = ModelProduit::selectAll();     //appel au modèle pour gerer la BD
 
         $controller = static::$object;
@@ -17,7 +19,8 @@ class ControllerProduit {
         require $list;
     }
 
-    public static function read(){
+    public static function read()
+    {
 
         $p = ModelProduit::select($_GET['idProduit']); //on récupère le produit
         $controller = static::$object;
@@ -30,7 +33,7 @@ class ControllerProduit {
             require $erreur;
 
         } else { //sinon on va afficher l'article
-            
+
             $view = 'detail';
             $pagetitle = 'Détail de l\'article';
             $detail = File::build_path(array("View", "view.php"));
@@ -38,17 +41,19 @@ class ControllerProduit {
         }
     }
 
-    public static function create(){
-        $controller='produit';
+    public static function create()
+    {
+        $controller = 'produit';
         $tab_categorie = ModelCategorie::selectAll();
-        $view='update';
+        $view = 'update';
         $action = "created";
-        $pagetitle='Création d\'un produit';
+        $pagetitle = 'Création d\'un produit';
 
         require_once File::build_path(array("View", "view.php"));
     }
 
-    public static function created(){
+    public static function created()
+    {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
@@ -64,8 +69,7 @@ class ControllerProduit {
             $view = 'created';
             $pagetitle = 'Produit créé';
             require_once File::build_path(array("View", "view.php"));
-        }
-        else {
+        } else {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
@@ -74,21 +78,23 @@ class ControllerProduit {
     }
 
 
-    public static function delete() {
+    public static function delete()
+    {
         $idP = $_GET['idProduit'];
 
         $p = ModelProduit::select($idP);
-        $p -> delete($idP);
+        $p->delete($idP);
 
         $tab_p = ModelProduit::selectAll();
 
-        $controller='produit';
-        $view='deleted';
-        $pagetitle='Supprimer un produit';
+        $controller = 'produit';
+        $view = 'deleted';
+        $pagetitle = 'Supprimer un produit';
         require_once File::build_path(array("view", "produit", "deleted.php"));
     }
 
-    public static function update(){
+    public static function update()
+    {
         $controller = static::$object;
         $idProduit = $_GET['idProduit'];
         $idCategorie = $_GET['idCategorie'];
@@ -97,10 +103,11 @@ class ControllerProduit {
         $view = "update";
         $pagetitle = "Mise à jour d'un produit";
         $action = "updated";
-        require_once File::build_path(array("View","view.php"));
+        require_once File::build_path(array("View", "view.php"));
     }
 
-    public static function updated(){
+    public static function updated()
+    {
 
         $nomProduit = $_POST['nomProduit'];
 
@@ -114,7 +121,7 @@ class ControllerProduit {
             "lienImage" => $_POST['lienImage']
 
         );
-        
+
 
         if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !isset($_POST["lienImage"]) || !ModelProduit::update($data)) {
             $controller = self::$object;
@@ -129,5 +136,19 @@ class ControllerProduit {
         $pagetitle = "Le produit à été modifié";
         require_once File::build_path(array("View", "view.php"));
     }
+
+    public static function aleatoire()
+    {
+        $tab = array();
+        for ($i = 1; $i <= 5; $i++) {
+            $random = rand(1, 7);
+            $produit = Model::select($random);
+            array_push($tab, $produit);
+        }
+        $controller = self::$object;
+        $view = 'aleatoire';
+        $pagetitle = "produit aleatoire";
+        require_once File::build_path(array("View", "view.php"));
+    }
+
 }
-?>
