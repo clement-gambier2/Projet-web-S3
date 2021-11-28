@@ -68,6 +68,23 @@ class ModelProduit extends Model{
 
         return $tab;
     }
+
+
+    public static function size(){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+
+        $sql = "SELECT COUNT(*) FROM $table_name";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+
+
+        $req_prep->execute();
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        return $req_prep->fetchColumn();
+    }
 }
 
 ?>

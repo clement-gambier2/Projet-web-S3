@@ -41,19 +41,15 @@ require_once File::build_path(array("Controller", "routeur.php"));
 
     </section>
 
+    <form methode="post" action="index.php?action=search&controller=Produit">
+        <input type="search" name="recherche" placeholder="Search for a product ? ">
+        <input type="submit" name="send">
+    </form>
+
+
     <h2>Popular products</h2>
 
     <section id="popular">
-        <div class="card">
-            <img src="ressources/NFT/drawing/face.jpeg" alt="" class="nft"/>
-            <p>Drawing</p>
-            <div class="market-detail">
-                <img src="ressources/profile.png" class="profil"">
-                <p>Jungle</p>
-            </div>
-            <div class="button">Add to cart</div>
-        </div>
-
         <?php
             include "View/produit/aleatoire.php";
         ?>
