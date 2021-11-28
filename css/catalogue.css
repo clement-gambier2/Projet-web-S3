@@ -19,7 +19,7 @@ img{
     border-radius: 10px;
 }
 
-.picture-profil{
+.market-detail{
     display:flex;
     flex-direction:row;
     justify-content: flex-start;
