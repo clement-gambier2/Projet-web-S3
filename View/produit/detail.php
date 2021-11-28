@@ -7,8 +7,6 @@
     $prix = rawurldecode($p->get('prixProduit'));
     $quantiteProduit = rawurldecode($p->get('quantiteProduit'));
     $lienImage = rawurldecode($p->get('lienImage'));
-
-
 ?>
 
 <section class="glass">

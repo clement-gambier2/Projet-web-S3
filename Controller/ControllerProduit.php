@@ -77,7 +77,6 @@ class ControllerProduit
         }
     }
 
-
     public static function delete()
     {
         $idP = $_GET['idProduit'];
@@ -137,6 +136,7 @@ class ControllerProduit
         require_once File::build_path(array("View", "view.php"));
     }
 
+    //TODO : Fonctionne pas encore, développement en cours
     public static function aleatoire()
     {
         $tab = array();
@@ -150,5 +150,17 @@ class ControllerProduit
         $pagetitle = "produit aleatoire";
         require_once File::build_path(array("View", "view.php"));
     }
+
+    /*TODO : Barre de recherche
+    Fonctionne pas encore, développement en cours */
+    public static function search(){
+        $recherche = $_POST['recherche'];
+        $resulat = ModelProduit::search($recherche);
+        echo var_dump($resulat);
+        $view = "search";
+        $pagetitle = "Résultat de la recherche";
+        require_once File::build_path(array("View", "view.php"));
+    }
+
 
 }

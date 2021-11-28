@@ -23,8 +23,6 @@
             </div>
             <div class="button">
                 <input type="submit" name="idProduit" value ="Ajouter au panier"/>
-
-
             </div>
         </div>
 
