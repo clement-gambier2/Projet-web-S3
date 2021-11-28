@@ -1,7 +1,16 @@
 
 <form action="index.php" method="get">
 
-    <h1>Creation de la commande</h1>
+    <?php
+        if($action == "created"){
+            echo '<h1>Creation de la commande</h1>';
+
+        }
+        else{
+            echo '<h1>Modification de la commande</h1>';
+
+        }
+    ?>
     <h2>Selectionnez l'utilisateur</h2>
     <select name="idUser">
         <?php
@@ -11,9 +20,11 @@
         }
         else{
             foreach ($tab_utilisateur as $utilisateur) {
-            $pseudo = $utilisateur->getIdUtilisateur();
-            echo "<option value='$pseudo'>$pseudo</option>";
-        }
+                $idUtilisateur = $utilisateur->get('idUtilisateur');
+                $pseudo = $utilisateur->get('pseudo');
+
+                echo "<option value='$idUtilisateur'>$pseudo</option>";
+            }
 
         } ?>
     </select>

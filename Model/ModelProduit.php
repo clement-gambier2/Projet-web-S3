@@ -12,7 +12,8 @@ class ModelProduit extends Model{
     private $idCategorie;
     private $prixProduit;
     private $quantiteProduit;
-   
+    private $lienImage;
+
     // Getter générique
     public function get($nom_attribut) {
         if (property_exists($this, $nom_attribut))
@@ -28,8 +29,8 @@ class ModelProduit extends Model{
     }
    
     // un constructeur
-    public function __construct($idP = NULL, $n = NULL, $d = NULL, $idC = NULL, $p = NULL, $q = NULL) {
-        if (!is_null($idP) && !is_null($n) && !is_null($idC) && !is_null($p) && !is_null($q)) {
+    public function __construct($idP = NULL, $n = NULL, $d = NULL, $idC = NULL, $p = NULL, $q = NULL, $l = NULL) {
+        if (!is_null($idP) && !is_null($n) && !is_null($idC) && !is_null($p) && !is_null($q) && !is_null($l)) {
           // Si aucun de $idP, $n, $idC, $p et $q sont nuls,
           // c'est forcement qu'on les a fournis
           // donc on retombe sur le constructeur à 3 arguments
@@ -39,6 +40,8 @@ class ModelProduit extends Model{
           $this->idCategorie = $idC;
           $this->prixProduit = $p;
           $this->quantiteProduit = $q;
+          $this->lienImage = $l;
+
         }
     }
 
@@ -64,6 +67,23 @@ class ModelProduit extends Model{
         $tab = $req_prep->fetchAll();
 
         return $tab;
+    }
+
+
+    public static function size(){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+
+        $sql = "SELECT COUNT(*) FROM $table_name";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+
+
+        $req_prep->execute();
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        return $req_prep->fetchColumn();
     }
 }
 

@@ -8,13 +8,13 @@
             // Sur votre machine, vous devrez creer une BDD
             'database' => 'gambierc',
             // A l'IUT, c'est votre login
-            // Sur votre machine, vous avez surement un compte 'root'
+            // Sur votre machinme, vous avez surement un compte 'root'
             'login' => 'gambierc',
             // A l'IUT, c'est votre mdp (INE par defaut)
             // Sur votre machine personelle, vous avez creez ce mdp a l'installation
             'password' => 'pazdit-cExpy7-boxgow'
         );
-        // la variable debug est un boolean
+
         static private $debug = True; 
         
         static public function getDebug() {

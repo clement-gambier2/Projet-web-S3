@@ -10,6 +10,8 @@
         $categorie = htmlspecialchars($produit->get('idCategorie'));
         $prix = htmlspecialchars($produit->get('prixProduit'));
         $quantite = htmlspecialchars($produit->get('quantiteProduit'));
+        $lienImage = htmlspecialchars($produit->get('lienImage'));
+
     }
     else{
         $idProduit =
@@ -18,18 +20,26 @@
         $categorie = "";
         $prix = "";
         $quantite = "";
+        $lienImage = "";
+
     }
 ?>
 
-
-<form method="post" class="glass2" action="/p_web_s3/index.php?action=<?php echo ($action == "create") ? 'created' : 'updated' ?>&controller=Produit">
+<link rel="stylesheet" href="css/form.css">
+<form method="post" class="glass2" action="index.php?action=<?php echo $action ?>&controller=Produit">
     <fieldset>
-        <legend>Création d'un produit</legend>
+        <?php
+        if($action == "created"){
+            echo "<h1>Creation d'un produit</h1>";
 
+        }
+        else{
+            echo "<h1>Modification d'un produit</h1>";
 
+        }
+        ?>
         <input type="hidden" name='action' value='<?php echo $action; ?>' />
         <input type="hidden" name='idProduit' value='<?php echo $idProduit; ?>' />
-
         <input type="hidden" name='controller' value='produit'>
 
 
@@ -46,7 +56,23 @@
 
         <p>
             <label for="idCategorie">ID de la catégorie :</label>
-            <input type="number" placeholder="1" name="idCategorie" id="idCategorie" value="<?php echo $categorie; ?>" required/>
+            <select name="idCategorie">
+                <?php
+
+                    foreach ($tab_categorie as $cat) {
+                        $categorie = $cat->get('idCategorie');
+                        if($categorie == $idCategorie)
+                        {
+                            echo "<option selected value='$categorie'>$categorie</option>";
+                        }
+                        else{
+
+                            echo "<option value='$categorie'>$categorie</option>";
+                        }
+
+
+                } ?>
+            </select>
         </p>
 
         <p>
@@ -59,10 +85,17 @@
             <input type="number" placeholder="2" name="quantiteProduit" id="quantiteProduit" value="<?php echo $quantite; ?>" required/>
         </p>
 
-
         <p>
-            <input type="submit" value="Envoyer" />
+            <label for="lienImage">Image du produit :</label>
+            <input type="text" placeholder="url de l'image" name="lienImage" id="lienImage" value="<?php echo $lienImage; ?>" required/>
         </p>
+
+
+        <div id="send">
+            <p>
+                <input type="submit" value="Envoyer" id="submit" />
+            </p>
+        </div>
     </fieldset>
 </form>
 </form>
