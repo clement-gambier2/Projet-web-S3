@@ -98,7 +98,7 @@ class ControllerUtilisateur {
 
     public static function update(){
 
-        if (Session::is_user($_GET['pseudo'])) {
+        if (Session::is_user($_GET['pseudo'] || $_SESSION['admin'] == 1)) {
             $controller = static::$object;
             $view = "update";
             $pagetitle = "Mettre à jour un utilisateur";
@@ -117,7 +117,7 @@ class ControllerUtilisateur {
 
     public static function updated(){
         $data = array(
-            "idUtilisateur" => $_POST["user_id"],
+            "idUtilisateur" => $_POST["idUtilisateur"], //la variable n'existe pas dans le update de la view utilisateur
             "nomutilisateur" => $_POST["nom"],
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
