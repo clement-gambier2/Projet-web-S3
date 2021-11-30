@@ -122,8 +122,12 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"]),
+            "isAdmin" => $_POST["isAdmin"]
         );
+
+        echo $_POST["idUtilisateur"] . " et " . $_POST["isAdmin"];
+    
         $pseudo = $_POST["pseudo"];
 
         if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {

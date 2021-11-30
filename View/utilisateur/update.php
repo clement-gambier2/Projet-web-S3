@@ -35,6 +35,7 @@
         <input type="hidden" name='action' value='<?php echo ($action == "create") ? 'created' : 'updated' ?>'>
         <input type="hidden" name='controller' value='utilisateur'>
 
+        <input type="hidden" name='idUtilisateur' value='<?php echo $idUtilisateur?>'>
 
         <p>
             <label for="nom">Nom</label>
@@ -75,10 +76,10 @@
                     } else {
                         $checkAdmin = '';
                     }
-                    echo '<input type="checkbox" name="isAdmin" id="admin" ' . $checkAdmin .' required/>';
+                    echo '<input type="checkbox" name="isAdmin" ' . $checkAdmin . '/>';
                 echo '</p>';
             } else {
-                //faire un echo d'un champ hidden avec une valeur false pour 'isAdmin'
+                echo '<input type="hidden" name="isAdmin" value="0">';
             }
         ?>
 
