@@ -1,8 +1,8 @@
 <?php
     $size = ModelProduit::size();
     $tab  = array();
-    for ($i = 1; $i <= 6; $i++) {
-        $random = rand(1,7);
+    for ($i = 1; $i <= 5; $i++) {
+        $random = rand(1,$size);
         while(in_array($random,$tab)) { //Tant que random génère un nombre déjà trouvé il ressaye
             $random = rand(1,$size);
         }
