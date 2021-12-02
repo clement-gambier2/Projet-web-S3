@@ -16,10 +16,11 @@
             <img src="<?php echo $prod->get("lienImage") ?>" alt="" class="nft"/>
             <p><?php echo $prod->get("nomProduit") ?></p>
             <div class="market-detail">
-                <p><?php echo " IdProduit : " . " " . $idProduit ?></p>
-                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
-                <?php echo $idCategorie ?>
+<!--                <p>--><?php //echo " IdProduit : " . " " . $idProduit ?><!--</p>-->
                 <?php echo $nomCategorie ?>
+                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
+<!--                --><?php //echo $idCategorie ?>
+
             </div>
             <div class="button">
                 <input type="submit" name="idProduit" value ="Ajouter au panier"/>
