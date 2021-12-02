@@ -136,23 +136,7 @@ class ControllerProduit
         require_once File::build_path(array("View", "view.php"));
     }
 
-    //TODO : Fonctionne pas encore, développement en cours
-    public static function aleatoire()
-    {
-        $tab = array();
-        for ($i = 1; $i <= 5; $i++) {
-            $random = rand(1, 7);
-            $produit = Model::select($random);
-            array_push($tab, $produit);
-        }
-        $controller = self::$object;
-        $view = 'aleatoire';
-        $pagetitle = "produit aleatoire";
-        require_once File::build_path(array("View", "view.php"));
-    }
-
-    /*TODO : Barre de recherche
-    Fonctionne pas encore, développement en cours */
+    /*TODO : Barre de recherche Fonctionne pas encore, développement en cours */
     public static function search(){
         $recherche = $_POST['recherche'];
         $resulat = ModelProduit::search($recherche);
