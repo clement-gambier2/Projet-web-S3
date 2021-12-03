@@ -82,11 +82,17 @@ class ControllerUtilisateur {
             require_once File::build_path(array("View", "view.php"));
         }
         else if (ModelUtilisateur::save($data)) {
-            $tab_uti = ModelUtilisateur::selectAll();
-            $controller = self::$object;
-            $view = 'created';
-            $pagetitle = 'Utilisateur créé';
-            require_once File::build_path(array("View", "view.php"));
+            if (isset($_SESSION['admin']) && $_SESSION['admin'] = 1) { //si l'utilisateur est admin on affiche le panneau, sinon non
+                $tab_uti = ModelUtilisateur::selectAll();
+                $controller = self::$object;
+                $view = 'created';
+                $pagetitle = 'Utilisateur créé';
+                require_once File::build_path(array("View", "view.php"));
+            }
+            else {
+                $pagetitle= 'Veuillez vous connecter';
+                require_once File::build_path(array("View", "view.php"));
+            }
         }
         else {
             $controller = self::$object;
@@ -174,15 +180,20 @@ class ControllerUtilisateur {
 
                 if (ModelUtilisateur::isAdmin($pseudo)) {
                     $_SESSION['admin'] = 1;
+                    $controller = 'Admin';
+                    $view = 'list';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    $action='afficher';
+                    require_once File::build_path(array("View", "view.php"));
                 }
                 else {
                     $_SESSION['admin'] = 0;
+                    $controller = self::$object;
+                    $view = 'marketPlace';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    $tab_prod = ModelProduit::selectAll();
+                    require_once File::build_path(array("View", "view.php"));
                 }
-
-                $controller = self::$object;
-                $view = 'detail';
-                $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                require_once File::build_path(array("View", "view.php"));
             }
             else {
                 $controller = self::$object;
