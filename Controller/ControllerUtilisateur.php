@@ -66,7 +66,7 @@ class ControllerUtilisateur {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "idUtilisateur" => $_POST["user_id"],
+            "idUtilisateur" => $_POST["idUtilisateur"],
             "nomutilisateur" => $_POST["nom"],
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
@@ -132,7 +132,7 @@ class ControllerUtilisateur {
             "isAdmin" => $_POST["isAdmin"]
         );
 
-        echo $_POST["idUtilisateur"] . " et " . $_POST["isAdmin"];
+        echo $_POST["idUtilisateur"] . " et " . $_POST["isAdmin"]; //debug A ENLEVER
     
         $pseudo = $_POST["pseudo"];
 
@@ -142,7 +142,7 @@ class ControllerUtilisateur {
             $pagetitle = 'Erreur mot de passe';
             require_once File::build_path(array("View", "view.php"));
         }
-        else if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
+        else if (!isset($_POST["idUtilisateur"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';

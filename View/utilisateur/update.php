@@ -76,7 +76,7 @@
                     } else {
                         $checkAdmin = '';
                     }
-                    echo '<input type="checkbox" name="isAdmin" ' . $checkAdmin . '/>';
+                    echo '<input type="checkbox" name="isAdmin" value="true" ' . $checkAdmin . '/>';
                 echo '</p>';
             } else {
                 echo '<input type="hidden" name="isAdmin" value="0">';
