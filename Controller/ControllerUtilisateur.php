@@ -266,9 +266,7 @@ class ControllerUtilisateur {
 
     }
 
-    public static function clearPanier(){
 
-    }
 
     public static function deconnect() {
         session_unset();
