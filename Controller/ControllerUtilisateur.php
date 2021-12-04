@@ -102,7 +102,10 @@ class ControllerUtilisateur {
                 $pagetitle= 'Veuillez vous connecter';
                 require_once File::build_path(array("View", "view.php"));
             }
-            echo '<a href="http://localhost/Projet-Web-S3/index.php?action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/>';
+            $mail = 'Cliquez sur le lien ci-dessous pour confirmer votre adresse mail : <br><br>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~gambierc/Projet-Web-S3/index.php?action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/> <br><br>
+            L\'équipe NFT Factory';
+            mail($_POST["mail"], "Vérification de votre adresse mail", $mail);
         }
         else {
             $controller = self::$object;
