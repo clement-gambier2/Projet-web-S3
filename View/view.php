@@ -19,7 +19,7 @@
         <?php
         if (isset($_SESSION['login'])) {
 
-            echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier" src="ressources/panier.png" alt=""></a></li>';
+            echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier_icon" src="ressources/panier.png" alt=""></a></li>';
 
             echo '<li><a href="index.php?action=update&controller=Utilisateur&idUtilisateur='. ModelUtilisateur::getUtilisateurByPseudo($_SESSION['login']) .'&pseudo='. $_SESSION['login'] .'">' . $_SESSION['login'] . '</a></li>';
             echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';

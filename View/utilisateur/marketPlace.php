@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="css/catalogue.css">
+
+
+<h2>Catalogue</h2>
+<?php
+include "View/produit/categorie-selector.php";
+?>
+
+
 <form method="get"  >
     <input type="hidden" name="action" value="ajouterAuPanier"/>
     <input type="hidden" name="controller" value="Utilisateur"/>
