@@ -42,4 +42,20 @@ main{
     grid-row-gap: 0px;
 }
 
+#categorie-selector{
+    margin-top:10px;
+}
+
+#selector{
+    margin-top: 10px;
+}
+
+#selector a{
+    background-color: #FAD961;
+    background-image: linear-gradient(90deg, #FAD961 0%, #F76B1C 100%);
+    border-radius: 15px;
+    padding: 5px;
+    margin-top:20px;
+    color: #fff;
+}
 
