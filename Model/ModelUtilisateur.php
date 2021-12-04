@@ -47,6 +47,7 @@ class ModelUtilisateur extends Model{
         if (empty($tab_user))
             return false;
         return $tab_user[0];
+
     }
 
     // Getter générique
