@@ -173,15 +173,15 @@ class ControllerUtilisateur {
     }
 
     public static function connected(){
-            if (!isset($_GET['pseudo']) || !isset($_GET['motDePasse'])) {
+            if (!isset($_POST['pseudo']) || !isset($_POST['motDePasse'])) {
                 $controller = self::$object;
                 $view = 'error';
                 $pagetitle = 'Erreur de connexion';
                 require_once File::build_path(array("View", "view.php"));
             }
 
-            $pseudo = $_GET['pseudo'];
-            $mdp = Security::hacher($_GET['motDePasse']);
+            $pseudo = $_POST['pseudo'];
+            $mdp = Security::hacher($_POST['motDePasse']);
 
             if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
                 if (ModelUtilisateur::checkMail($pseudo)) {
