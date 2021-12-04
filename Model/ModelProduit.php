@@ -102,4 +102,20 @@ class ModelProduit extends Model
         $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
         return $req_prep->fetchColumn();
     }
+
+    public static function getByCategories($categorie){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+
+        $sql = "SELECT idProduit FROM $table_name WHERE idCategorie = $categorie";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+
+
+        $req_prep->execute();
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        return $req_prep->fetchAll();
+    }
 }
