@@ -23,9 +23,8 @@
 <!--                --><?php //echo $idCategorie ?>
 
             </div>
-            <div class="button">
-                <input type="submit" name="idProduit" value ="Ajouter au panier"/>
-            </div>
+            <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
+            <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
         </div>
    <?php } ?>
 
@@ -33,7 +32,6 @@
 
 
 
-?>
 
 
 
