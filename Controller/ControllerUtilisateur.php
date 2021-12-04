@@ -71,7 +71,8 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"]),
+            "nonce" => Security::generateRandomHex()
         );
         $pseudo = $_POST["pseudo"];
 
@@ -101,6 +102,7 @@ class ControllerUtilisateur {
                 $pagetitle= 'Veuillez vous connecter';
                 require_once File::build_path(array("View", "view.php"));
             }
+            echo '<a href="http://localhost/Projet-Web-S3/index.php?action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/>';
         }
         else {
             $controller = self::$object;
@@ -232,6 +234,12 @@ class ControllerUtilisateur {
         $requete = Model::getPDO()->query('SELECT nonce FROM Utilisateur WHERE pseudo="' . $_GET['pseudo'] . '"'); //gérer le cas ou le pseudo est pas bon et ou le nonce est déjà à null
         if ($requete->fetchColumn() == $_GET['nonce']) {
             $change = Model::getPDO()->prepare('UPDATE Utilisateur SET nonce=NULL WHERE pseudo="' . $_GET['pseudo'] . '"');
+            $change->execute();
+            $controller = self::$object;
+            $view = 'marketPlace';
+            $pagetitle = 'Merci d\'avoir vérifié votre mail!';
+            $tab_prod = ModelProduit::selectAll();
+            require_once File::build_path(array("View", "view.php"));
         } else {
             $controller = self::$object;
             $view = 'error';
@@ -285,8 +293,9 @@ class ControllerUtilisateur {
     public static function deconnect() {
         session_unset();
         $controller = self::$object;
-        $view = 'detail';
+        $view = 'marketPlace';
         $pagetitle = 'Déconnexion réussie';
+        $tab_prod = ModelProduit::selectAll();
         require_once File::build_path(array("View", "view.php"));
     }
 }
