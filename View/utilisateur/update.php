@@ -54,7 +54,7 @@
 
         <p>
             <label for="mail">Mail</label>
-            <input type="text" placeholder="mail.utilisateur@gmail.com" name="mail" id="mail" value="<?php echo $mailUtilisateur; ?>" required/>
+            <input type="mail" placeholder="mail.utilisateur@yopmail.com" pattern=".+@yopmail\.com" name="mail" id="mail" value="<?php echo $mailUtilisateur; ?>" required/>
         </p>
 
         <p>

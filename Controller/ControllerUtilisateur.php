@@ -77,8 +77,16 @@ class ControllerUtilisateur {
 
         if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
             $controller = self::$object;
-            $view = 'errorMdp';
+            $view = 'error';
             $pagetitle = 'Erreur mot de passe';
+            echo "Les mots de passes ne correspondent pas";
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL) == false){
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur mail';
+            echo "L'adresse mail n'est pas valide";
             require_once File::build_path(array("View", "view.php"));
         }
         else if (ModelUtilisateur::save($data)) {
@@ -176,24 +184,34 @@ class ControllerUtilisateur {
             $mdp = Security::hacher($_GET['motDePasse']);
 
             if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
-                $_SESSION['login'] = $pseudo;
+                if (ModelUtilisateur::checkMail($pseudo)) {
+                    $_SESSION['login'] = $pseudo;
 
-                if (ModelUtilisateur::isAdmin($pseudo)) {
-                    $_SESSION['admin'] = 1;
-                    $controller = 'Admin';
-                    $view = 'list';
-                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                    $action='afficher';
-                    require_once File::build_path(array("View", "view.php"));
-                }
-                else {
-                    $_SESSION['admin'] = 0;
+                    if (ModelUtilisateur::isAdmin($pseudo)) {
+                        $_SESSION['admin'] = 1;
+                        $controller = 'Admin';
+                        $view = 'list';
+                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                        $action='afficher';
+                        require_once File::build_path(array("View", "view.php"));
+                    }
+                    else {
+                        $_SESSION['admin'] = 0;
+                        $controller = self::$object;
+                        $view = 'marketPlace';
+                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                        $tab_prod = ModelProduit::selectAll();
+                        require_once File::build_path(array("View", "view.php"));
+                    }
+                } else {
                     $controller = self::$object;
-                    $view = 'marketPlace';
-                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                    $tab_prod = ModelProduit::selectAll();
+                    $view = 'error';
+                    $pagetitle = 'Mauvais mot de passe';
+                    echo "Veuillez vérifier votre adresse mail";
                     require_once File::build_path(array("View", "view.php"));
                 }
+                
+                
             }
             else {
                 $controller = self::$object;
@@ -201,6 +219,26 @@ class ControllerUtilisateur {
                 $pagetitle = 'Mauvais mot de passe';
                 require_once File::build_path(array("View", "view.php"));
             }
+    }
+
+    public static function validate() {
+        if (!isset($_GET['pseudo']) || !isset($_GET['nonce'])) {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur de vérification du mail';
+            require_once File::build_path(array("View", "view.php"));
+        }
+
+        $requete = Model::getPDO()->query('SELECT nonce FROM Utilisateur WHERE pseudo="' . $_GET['pseudo'] . '"'); //gérer le cas ou le pseudo est pas bon et ou le nonce est déjà à null
+        if ($requete->fetchColumn() == $_GET['nonce']) {
+            $change = Model::getPDO()->prepare('UPDATE Utilisateur SET nonce=NULL WHERE pseudo="' . $_GET['pseudo'] . '"');
+        } else {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur de vérification de l\'adresse mail';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        
     }
 
     public static function marketPlace() {
