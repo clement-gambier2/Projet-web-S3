@@ -2,10 +2,9 @@
 
 
 <h2>Catalogue</h2>
-<form action="index.php?action=search&controller=Produit&" method="post">
-    <input name="recherche" id="recherche" type="text" placeholder="Type here">
-    <input id="submit" type="submit" value="Search">
-</form>
+<?php
+include "View/produit/categorie-selector.php";
+?>
 
 
 <form method="get"  >

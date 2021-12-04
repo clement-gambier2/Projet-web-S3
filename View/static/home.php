@@ -53,14 +53,5 @@ require_once File::build_path(array("Controller", "routeur.php"));
         <?php
             include "View/produit/aleatoire.php";
         ?>
-
-
-
-
-
-
-
-
-
     </section>
 
