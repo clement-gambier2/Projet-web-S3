@@ -2,7 +2,8 @@
 
 require_once File::build_path(array("Model","ModelProduit.php"));
 $idCommande = $idC;
-$idUtilisateur = $idU;
+$idUtilisateur = $_GET['idUtilisateur'];
+
 
 echo '<h2> commande : ' . htmlspecialchars($idCommande) . '</h2>';
 
