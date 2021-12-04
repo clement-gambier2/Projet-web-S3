@@ -129,7 +129,7 @@ class ControllerUtilisateur {
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
             "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"]),
-            "isAdmin" => $_POST["isAdmin"]
+            "isAdmin" => ($_POST["isAdmin"]=='true') ? '1' : '0'
         );
 
         echo $_POST["idUtilisateur"] . " et " . $_POST["isAdmin"]; //debug A ENLEVER
