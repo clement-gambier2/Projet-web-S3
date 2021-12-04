@@ -66,7 +66,7 @@ class ControllerUtilisateur {
 
         //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "idUtilisateur" => $_POST["user_id"],
+            "idUtilisateur" => $_POST["idUtilisateur"],
             "nomutilisateur" => $_POST["nom"],
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
@@ -82,11 +82,17 @@ class ControllerUtilisateur {
             require_once File::build_path(array("View", "view.php"));
         }
         else if (ModelUtilisateur::save($data)) {
-            $tab_uti = ModelUtilisateur::selectAll();
-            $controller = self::$object;
-            $view = 'created';
-            $pagetitle = 'Utilisateur créé';
-            require_once File::build_path(array("View", "view.php"));
+            if (isset($_SESSION['admin']) && $_SESSION['admin'] = 1) { //si l'utilisateur est admin on affiche le panneau, sinon non
+                $tab_uti = ModelUtilisateur::selectAll();
+                $controller = self::$object;
+                $view = 'created';
+                $pagetitle = 'Utilisateur créé';
+                require_once File::build_path(array("View", "view.php"));
+            }
+            else {
+                $pagetitle= 'Veuillez vous connecter';
+                require_once File::build_path(array("View", "view.php"));
+            }
         }
         else {
             $controller = self::$object;
@@ -98,7 +104,7 @@ class ControllerUtilisateur {
 
     public static function update(){
 
-        if (Session::is_user($_GET['pseudo'])) {
+        if (Session::is_user($_GET['pseudo'] || $_SESSION['admin'] == 1)) {
             $controller = static::$object;
             $view = "update";
             $pagetitle = "Mettre à jour un utilisateur";
@@ -117,13 +123,17 @@ class ControllerUtilisateur {
 
     public static function updated(){
         $data = array(
-            "idUtilisateur" => $_POST["user_id"],
+            "idUtilisateur" => $_POST["idUtilisateur"], //la variable n'existe pas dans le update de la view utilisateur
             "nomutilisateur" => $_POST["nom"],
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"]),
+            "isAdmin" => ($_POST["isAdmin"]=='true') ? '1' : '0'
         );
+
+        echo $_POST["idUtilisateur"] . " et " . $_POST["isAdmin"]; //debug A ENLEVER
+    
         $pseudo = $_POST["pseudo"];
 
         if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
@@ -132,7 +142,7 @@ class ControllerUtilisateur {
             $pagetitle = 'Erreur mot de passe';
             require_once File::build_path(array("View", "view.php"));
         }
-        else if (!isset($_POST["user_id"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
+        else if (!isset($_POST["idUtilisateur"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
@@ -170,15 +180,20 @@ class ControllerUtilisateur {
 
                 if (ModelUtilisateur::isAdmin($pseudo)) {
                     $_SESSION['admin'] = 1;
+                    $controller = 'Admin';
+                    $view = 'list';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    $action='afficher';
+                    require_once File::build_path(array("View", "view.php"));
                 }
                 else {
                     $_SESSION['admin'] = 0;
+                    $controller = self::$object;
+                    $view = 'marketPlace';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    $tab_prod = ModelProduit::selectAll();
+                    require_once File::build_path(array("View", "view.php"));
                 }
-
-                $controller = self::$object;
-                $view = 'detail';
-                $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                require_once File::build_path(array("View", "view.php"));
             }
             else {
                 $controller = self::$object;

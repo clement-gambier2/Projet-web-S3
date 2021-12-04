@@ -20,6 +20,10 @@
         <p>
             <input type="submit" value="Se connecter" />
         </p>
+
+        <p>
+            <a href="index.php?action=create&controller=Utilisateur" id="boutonCreerCompte">Créer un compte</a>
+        </p>
     </fieldset>
 </form>
 </form>

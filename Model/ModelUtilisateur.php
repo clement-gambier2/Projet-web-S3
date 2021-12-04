@@ -24,6 +24,12 @@ class ModelUtilisateur extends Model{
         return $requete->fetchColumn() == 1;
     }
 
+    public static function getUtilisateurByPseudo($pseudo) {
+        $requete = Model::getPDO()->query('SELECT idUtilisateur FROM Utilisateur WHERE pseudo= "' . $pseudo . '"');
+
+        return $requete->fetchColumn();
+    }
+
     // Getter générique
     public function get($nom_attribut) {
         if (property_exists($this, $nom_attribut))
