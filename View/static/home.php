@@ -12,7 +12,7 @@ require_once File::build_path(array("Controller", "routeur.php"));
             <div>
                 <p class="title">The NFT world at a few clicks</p>
                 <p class="title">Find rare digital art and collect NFTs</p>
-                <div class="button"><a href="index.php?action=marketPlace&controller=Utilisateur">Explore</a></div>
+                <div id="explore_button"><a href="index.php?action=marketPlace&controller=Utilisateur">Explore</a></div>
             </div>
             <canvas>
                 ANIMATION THREE JS

@@ -1,8 +1,8 @@
 <?php
     $size = ModelProduit::size();
     $tab  = array();
-    for ($i = 1; $i <= 6; $i++) {
-        $random = rand(1,7);
+    for ($i = 1; $i <= 5; $i++) {
+        $random = rand(1,$size);
         while(in_array($random,$tab)) { //Tant que random génère un nombre déjà trouvé il ressaye
             $random = rand(1,$size);
         }
@@ -17,14 +17,14 @@
             <img src="<?php echo $p->get("lienImage") ?>" alt="" class="nft"/>
             <p><?php echo $p->get("nomProduit") ?></p>
             <div class="market-detail">
-                <p><?php echo " IdProduit : " . " " . $idProduit ?></p>
-                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
-                <?php echo $idCategorie ?>
+<!--                <p>--><?php //echo " IdProduit : " . " " . $idProduit ?><!--</p>-->
                 <?php echo $nomCategorie ?>
+                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
+<!--                --><?php //echo $idCategorie ?>
+
             </div>
-            <div class="button">
-                <input type="submit" name="idProduit" value ="Ajouter au panier"/>
-            </div>
+            <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
+            <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
         </div>
    <?php } ?>
 
@@ -32,7 +32,6 @@
 
 
 
-?>
 
 
 

@@ -23,6 +23,8 @@
         <p>  Prix : <?php echo $prix ?>€ </p>
         <p> Quantité en stock : <?php echo $quantiteProduit ?></p>
     </div>
+    <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
+    <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
 
 </section>
 
