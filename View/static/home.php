@@ -41,10 +41,10 @@ require_once File::build_path(array("Controller", "routeur.php"));
 
     </section>
 
-    <form methode="post" action="index.php?action=search&controller=Produit">
-        <input type="search" name="recherche" placeholder="Search for a product ? ">
-        <input type="submit" name="send">
-    </form>
+<form action="index.php?action=search&controller=Produit&" method="post">
+    <input name="recherche" id="recherche" type="text" placeholder="Type here">
+    <input id="submit" type="submit" value="Search">
+</form>
 
 
     <h2>Popular products</h2>
