@@ -18,7 +18,9 @@ class ControllerCommande {
 
     public static function read(){
         $idC = $_GET['idCommande'];
-        $idU = $_GET['idUtilisateur'];
+        if(isset($_GET['idUtilisateur'])){
+            $idU = $_GET['idUtilisateur'];
+        }
 
         $l = ModelProduit::getAllProduits($idC);
         if(!$l){
@@ -93,10 +95,44 @@ class ControllerCommande {
             require_once File::build_path(array("View", "view.php"));
         }
 
-
-
     }
 
+    public static function createCommandePanier(){
+
+        $data = array();
+        $produits = $_SESSION['panier'];
+        $idUtilisateur = $_SESSION['idUser'];
+
+        if(isset($produits) || isset($idUtilisateur)){
+            ModelCommande::saveCommande($idUtilisateur, $data);
+
+            foreach($produits as $p){
+                $produit = unserialize($p);
+                $prodId = $produit->get('idProduit');
+                ModelCommande::saveProduitsCommande($idUtilisateur, $prodId);
+
+                $index = array_search(serialize($produit),$_SESSION['panier']);
+
+                if(isset($index)){
+                    unset($_SESSION['panier'][$index]);
+                }
+
+            }
+            echo "Commande passé";
+            $controller = 'Utilisateur';
+            $view = 'panier';
+            $pagetitle = 'Panier';
+            require_once File::build_path(array("View", "view.php"));
+        }
+
+        else {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Une erreur est survenue';
+            require_once File::build_path(array("View", "view.php"));
+        }
+
+    }
     public static function update(){
         $tab_prod = ModelProduit::selectAll();
 
@@ -113,10 +149,6 @@ class ControllerCommande {
     }
 
     public static function updated(){
-
-
-
-
 
         if (!isset($_GET['idCommande']) | !isset($_GET['idUser']) |!isset($_GET['idCommande'])) {
             $controller = self::$object;

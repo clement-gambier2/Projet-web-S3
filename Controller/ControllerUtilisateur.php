@@ -177,6 +177,8 @@ class ControllerUtilisateur {
 
             if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
                 $_SESSION['login'] = $pseudo;
+                $user = ModelUtilisateur::selectWithPseudo($pseudo);
+                $_SESSION['idUser'] = $user->get('idUtilisateur');
 
                 if (ModelUtilisateur::isAdmin($pseudo)) {
                     $_SESSION['admin'] = 1;
@@ -241,6 +243,30 @@ class ControllerUtilisateur {
 
         require_once File::build_path(array("View","view.php"));
 
+
+    }
+
+    public static function supprimerDuPanier(){
+
+
+        $p = ModelProduit::select($_GET['idProduit']);
+
+        $index = array_search(serialize($p),$_SESSION['panier']);
+
+        if(isset($index)){
+            unset($_SESSION['panier'][$index]);
+        }
+
+
+        $controller = static::$object;
+        $view = "panier";
+        $pagetitle = "Panier";
+
+        require_once File::build_path(array("View","view.php"));
+
+    }
+
+    public static function clearPanier(){
 
     }
 
