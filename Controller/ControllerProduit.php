@@ -1,11 +1,14 @@
 <?php
 require_once File::build_path(Array("Model", "ModelProduit.php"));
+require_once File::build_path(Array("Model", "ModelCategorie.php"));
 
-class ControllerProduit {
+class ControllerProduit
+{
 
     protected static $object = 'produit';
 
-    public static function readAll() {
+    public static function readAll()
+    {
         $tab_p = ModelProduit::selectAll();     //appel au modèle pour gerer la BD
 
         $controller = static::$object;
@@ -16,7 +19,8 @@ class ControllerProduit {
         require $list;
     }
 
-    public static function read(){
+    public static function read()
+    {
 
         $p = ModelProduit::select($_GET['idProduit']); //on récupère le produit
         $controller = static::$object;
@@ -29,7 +33,7 @@ class ControllerProduit {
             require $erreur;
 
         } else { //sinon on va afficher l'article
-            
+
             $view = 'detail';
             $pagetitle = 'Détail de l\'article';
             $detail = File::build_path(array("View", "view.php"));
@@ -37,76 +41,110 @@ class ControllerProduit {
         }
     }
 
-    public static function create(){
-        $controller='produit';
-        $view='create';
-        $pagetitle='Création d\'un produit';
+    public static function create()
+    {
+        $controller = 'produit';
+        $tab_categorie = ModelCategorie::selectAll();
+        $view = 'update';
+        $action = "created";
+        $pagetitle = 'Création d\'un produit';
+
         require_once File::build_path(array("View", "view.php"));
     }
 
-    public static function created(){
-        $idP = $_GET['idProduit']; // faire en sorte qu'il s'autoincrémente plutot que de le remplir à la main
-        $n = $_GET['nomProduit'];
-        $d = $_GET['descriptionProduit'];
-        $idC = $_GET['idCategorie'];
-        $p = $_GET['prixProduit'];
-        $q = $_GET['quantiteProduit'];
+    public static function created()
+    {
 
-        $p = new ModelProduit($idP, $n, $d, $idC, $p, $d);
-        $p->save();
-
-        $tab_p = ModelProduit::selectAll();
-
-        $controller='produit';
-        $view='created';
-        $pagetitle='Liste des produits';
-        require_once File::build_path(array("view", "view.php"));
-    }
-
-    public static function delete() {
-        $idP = $_GET['idProduit'];
-
-        $p = ModelProduit::select($idP);
-        $p -> delete($idP);
-
-        $tab_p = ModelProduit::selectAll();
-
-        $controller='produit';
-        $view='deleted';
-        $pagetitle='Supprimer un produit';
-        require_once File::build_path(array("view", "produit", "deleted.php"));
-    }
-
-    public static function update(){
-        $controller = static::$object;
-        $view = "update";
-        $pagetitle = "Mise à jour d'un produit";
-        $action = "update";
-        require_once File::build_path(array("View","view.php"));
-    }
-
-    public static function updated(){
+        //récupérer les donnés de la voiture à partir de la query string
         $data = array(
-            "idProduit" => $_POST["idProduit"],
             "nomProduit" => $_POST["nomProduit"],
             "descriptionProduit" => $_POST["descriptionProduit"],
             "idCategorie" => $_POST["idCategorie"],
             "prixProduit" => $_POST["prixProduit"],
             "quantiteProduit" => $_POST["quantiteProduit"]
         );
+        if (ModelProduit::save($data)) {
+            $tab_p = ModelProduit::selectAll();
+            $controller = self::$object;
+            $view = 'created';
+            $pagetitle = 'Produit créé';
+            require_once File::build_path(array("View", "view.php"));
+        } else {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Une erreur est survenue';
+            require_once File::build_path(array("View", "view.php"));
+        }
+    }
 
-        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !ModelUtilisateur::update($data)) {
+    public static function delete()
+    {
+        $idP = $_GET['idProduit'];
+
+        $p = ModelProduit::select($idP);
+        $p->delete($idP);
+
+        $tab_p = ModelProduit::selectAll();
+
+        $controller = 'produit';
+        $view = 'deleted';
+        $pagetitle = 'Supprimer un produit';
+        require_once File::build_path(array("view", "produit", "deleted.php"));
+    }
+
+    public static function update()
+    {
+        $controller = static::$object;
+        $idProduit = $_GET['idProduit'];
+        $idCategorie = $_GET['idCategorie'];
+        $tab_categorie = ModelCategorie::selectAll();
+
+        $view = "update";
+        $pagetitle = "Mise à jour d'un produit";
+        $action = "updated";
+        require_once File::build_path(array("View", "view.php"));
+    }
+
+    public static function updated()
+    {
+
+        $nomProduit = $_POST['nomProduit'];
+
+        $data = array(
+            "idProduit" => $_POST['idProduit'],
+            "nomProduit" => $nomProduit,
+            "descriptionProduit" => $_POST['descriptionProduit'],
+            "idCategorie" => $_POST['idCategorie'],
+            "prixProduit" => $_POST['prixProduit'],
+            "quantiteProduit" => $_POST['quantiteProduit'],
+            "lienImage" => $_POST['lienImage']
+
+        );
+
+
+        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !isset($_POST["lienImage"]) || !ModelProduit::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue en updatant le produit';
             require_once File::build_path(array("View", "view.php"));
         }
 
-        $tab_uti = ModelUtilisateur::selectAll();
+        $tab_p = ModelProduit::selectAll();
         $controller = self::$object;
         $view = 'updated';
         $pagetitle = "Le produit à été modifié";
         require_once File::build_path(array("View", "view.php"));
     }
+
+    /*TODO : Barre de recherche Fonctionne pas encore, développement en cours */
+    public static function search(){
+        $recherche = $_POST['recherche'];
+        $resulat = ModelProduit::search($recherche);
+        echo var_dump($resulat);
+        $view = "search";
+        $pagetitle = "Résultat de la recherche";
+        require_once File::build_path(array("View", "view.php"));
+    }
+
+
 }
-?>

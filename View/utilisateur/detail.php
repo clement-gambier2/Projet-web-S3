@@ -1,15 +1,17 @@
 <?php
+    /*
+    $idurl = rawurlencode($l->get('idUtilisateur'));
+    $pseudo = rawurlencode($l->get('idUtilisateur'));
+    echo '<p> Pseudo :  ' . $l->get('pseudo') . '</p>';
+    echo '<p> Prenom : ' . $l->get('prenomUtilisateur') . '</p>';
+    echo '<p> Nom :  ' . $l->get('nomUtilisateur') .'</p>';
+    echo '<p> Mail : ' . $l->get('mailUtilisateur') . '</p>';
+    echo '<p> Mot de passe : ' . $l->get('motDePasseUtilisateur') . '</p>';
 
-    $idurl = rawurlencode($l->getIdUtilisateur());
-    echo '<p> Pseudo :  ' . $l->getPseudo() . '</p>';
-    echo '<p> Prenom : ' . $l->getPrenom() . '</p>';
-    echo '<p> Nom :  ' . $l->getNom() .'</p>';
-    echo '<p> Mail : ' . $l->getMail() . '</p>';
-    echo '<p> Mot de passe : ' . $l->getMotDePasseUtilisateur() . '</p>';
 
+    echo '</p> <a href="index.php?action=delete&&idUtilisateur='. $idurl .' "> Supprimer l\'utilisateur </a>';
 
-    echo '</p> <a href="index.php?action=delete&&idUtilisateur='. $idurl .' "> supprimer l utilisateur </a>';
-
-    echo '</p> <a href="index.php?controller=Utilisateur&&action=update&&idUtilisateur='. $idurl .' "> modifier l utilisateur </a>';
+    echo '</p> <a href="index.php?controller=Utilisateur&&action=update&&idUtilisateur='. $idurl .'&&pseudo='. $pseudo .' "> Modifier l\'utilisateur </a>';
+    */
 ?>
 

@@ -120,7 +120,7 @@ class Model {
                 echo $e->getMessage(); // affiche un message d'erreur'
             }
             else{
-                echo "une erreur est survenue";
+                echo "une erreur est survenue durant l'update";
             }
             return false;
         }
