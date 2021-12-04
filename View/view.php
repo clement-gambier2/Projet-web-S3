@@ -13,28 +13,24 @@
 <nav>
     <a href="index.php"><h1>NFT Factory</h1></a>
     <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="index.php?action=marketPlace&controller=Utilisateur">Marketplace</a></li>
-        <li><a href="#">Creators</a></li>
+        <li><a href="index.php">Accueil</a></li>
+        <li><a href="index.php?action=marketPlace&controller=Utilisateur">Boutique</a></li>
+        <li><a href="#">Createurs</a></li>
         <?php
         if (isset($_SESSION['login'])) {
 
             echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier_icon" src="ressources/panier.png" alt=""></a></li>';
 
+            echo '<li><a href="index.php?action=update&controller=Utilisateur&idUtilisateur='. ModelUtilisateur::getUtilisateurByPseudo($_SESSION['login']) .'&pseudo='. $_SESSION['login'] .'">' . $_SESSION['login'] . '</a></li>';
+            echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';
+
             if ($_SESSION['admin'] == 1) {
-                echo $_SESSION['login'];
-                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Log out</a></li>';
-                echo '<li><a href="index.php?action=afficher&controller=Admin">Administrator</a></li>';
-            }
-            else {
-                echo $_SESSION['login'];
-                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Log out</a></li>';
+                echo '<li><a href="index.php?action=afficher&controller=Admin">Panneau Admin</a></li>';
             }
         }
         else {
-            echo '<li><a href="index.php?action=connect&controller=Utilisateur">Log in</a></li>';
+            echo '<li><a href="index.php?action=connect&controller=Utilisateur">Connexion</a></li>';
         }
-
         ?>
 
 
