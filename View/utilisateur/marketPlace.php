@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="css/catalogue.css">
-<form method="get"  >
-    <input type="hidden" name="action" value="ajouterAuPanier"/>
-    <input type="hidden" name="controller" value="Utilisateur"/>
+<link rel="stylesheet" href="css/form.css">
 
     <main>
 <?php
@@ -17,16 +15,24 @@
             <p><?php echo $prod->get("nomProduit") ?></p>
             <div class="market-detail">
 <!--                <p>--><?php //echo " IdProduit : " . " " . $idProduit ?><!--</p>-->
-                <?php echo $nomCategorie ?>
-                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
+                <p><?php echo $nomCategorie ?> </p>
+
+
+                    <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>"><p>Voir plus</p></a>
 <!--                --><?php //echo $idCategorie ?>
 
             </div>
-            <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
+            <form method="get"  >
+                <input type="hidden" name="action" value="ajouterAuPanier"/>
+                <input type="hidden" name="controller" value="Utilisateur"/>
+
+                <input type="hidden" name="idProduit" value="<?php echo $idProduit ?>"/>
+
+                <input id="submit" type="submit" value = "Ajouter au panier"/></input>
+            </form>
 <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
         </div>
 
 
     <?php } ?>
     </main>
-</form>

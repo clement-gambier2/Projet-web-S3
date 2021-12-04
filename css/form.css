@@ -39,3 +39,8 @@ fieldset p{
     background: linear-gradient(to right, #ad5389, #3c1053);
     color: white;
 }
+
+#submit:hover{
+    cursor: pointer;
+}
+

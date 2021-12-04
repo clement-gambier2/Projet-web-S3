@@ -13,15 +13,16 @@
         </thead>
         <tbody>
         <?php foreach ($tab_com as $c) {
-            $idUtilisateur = $c->get('idUtilisateur');
+            $idUtilisateur = rawurlencode($c->get('idUtilisateur'));
             $idCommande = rawurlencode($c->get('idCommande'));
             ?>
             <tr>
-                <td><?php echo htmlspecialchars($idUtilisateur); ?></td>
                 <td><?php echo htmlspecialchars($idCommande); ?></td>
-                <td><a href='index.php?action=read&controller=Commande&idCommande=<?php echo $idCommande;?>'>Voir plus</a></td>
+
+                <td><?php echo htmlspecialchars($idUtilisateur); ?></td>
+                <td><a href='index.php?action=read&controller=Commande&idCommande=<?php echo $idCommande;?>&idUtilisateur=<?php echo $idUtilisateur;?>'>Voir plus</a></td>
                 <td ><a href='index.php?action=update&controller=Commande&idCommande=<?php echo $idCommande;?>&idUtilisateur=<?php echo $idUtilisateur;?>'>🖋</a></td>
-                <td ><a href="">❌</a></td>
+                <td ><a href='index.php?controller=commande&action=delete&idCommande=<?php echo $idCommande;?>'>❌</a></td>
             </tr>
         <?php } ?>
         </tbody>
