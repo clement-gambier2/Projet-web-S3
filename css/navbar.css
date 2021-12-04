@@ -21,12 +21,15 @@ nav{
 nav h1{
     margin-right: 300px;
     font-family: 'Fira Mono', monospace;
+    font-size: 50px;
+    color: whitesmoke;
 }
 
 nav ul{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 nav ul li {
     list-style: none;
@@ -46,6 +49,16 @@ h2{
 }
 
 .button{
+    background-color:white;
+    padding: 15px 50px;
+    margin: 20px 20px;
+    color:black;
+    text-align: center;
+    filter: drop-shadow(0 0 0.75rem white);
+    border: none;
+}
+
+#explore_button{
     background-color:white;
     padding: 15px 50px;
     margin: 20px 20px;
@@ -71,8 +84,9 @@ a{
     margin-bottom: 50px;
 }
 
-#panier{
+#panier_icon{
     width: 35px;
+    filter: invert(1);
 }
 
 
