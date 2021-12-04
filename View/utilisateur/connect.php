@@ -1,6 +1,7 @@
-<form>
+<link rel="stylesheet" href="css/form.css">
+<form class="glass2">
     <fieldset>
-        <legend>Connexion</legend>
+        <h2>Connexion</h2>
 
         <input type="hidden" name='action' value='connected'>
         <input type="hidden" name='controller' value='utilisateur'>

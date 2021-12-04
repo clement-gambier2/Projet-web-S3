@@ -23,16 +23,16 @@
 
             if ($_SESSION['admin'] == 1) {
                 echo $_SESSION['login'];
-                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';
+                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Log out</a></li>';
                 echo '<li><a href="index.php?action=afficher&controller=Admin">Administrator</a></li>';
             }
             else {
                 echo $_SESSION['login'];
-                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';
+                echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Log out</a></li>';
             }
         }
         else {
-            echo '<li><a href="index.php?action=connect&controller=Utilisateur">Se connecter</a></li>';
+            echo '<li><a href="index.php?action=connect&controller=Utilisateur">Log in</a></li>';
         }
 
         ?>
