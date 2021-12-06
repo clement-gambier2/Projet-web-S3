@@ -18,15 +18,15 @@ class ModelUtilisateur extends Model{
         return $requete->fetchColumn() != false;
     }
 
+    public static function checkMail($login) {
+        $requete = Model::getPDO()->query('SELECT nonce FROM Utilisateur WHERE pseudo="' . $login . '"');
+        return $requete->fetchColumn() == NULL;
+    }
+
     public static function isAdmin($login) {
         $requete = Model::getPDO()->query('SELECT isAdmin FROM Utilisateur WHERE pseudo= "' . $login . '"');
 
         return $requete->fetchColumn() == 1;
-    }
-
-    public static function getUtilisateurByPseudo($pseudo)
-    {
-        $requete = Model::getPDO()->query('SELECT idUtilisateur FROM Utilisateur WHERE pseudo= "' . $pseudo . '"');
     }
 
 

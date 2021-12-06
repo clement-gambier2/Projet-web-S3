@@ -55,7 +55,7 @@
     <?php
     }
     else{
-        echo "le pannier est vide !";
+        echo "<h2>le pannier est vide !</h2>";
     }
 
 
