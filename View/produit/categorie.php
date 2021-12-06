@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="css/catalogue.css">
-<?php $nomCategorie = (new ModelCategorie)->getNomCategorie($categorie); ?>
-
+<?php
+    $cat = ModelCategorie::select($_GET["categorie"]);
+    $nomCategorie = $cat->get("nomCategorie");
+?>
 <h2>Catégorie : <?php echo $nomCategorie ?></h2>
 
 <?php
@@ -12,7 +14,7 @@ include "View/produit/categorie-selector.php";
 <?php foreach ($produits as $p) {
     $idProduit = $p->get('idProduit');
     $generique_produit = ModelProduit::select($idProduit);
-    $idCategorie = $generique_produit->get("idCategorie");
+
 
     ?>
 <div class="card">

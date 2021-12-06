@@ -227,6 +227,7 @@ class ControllerUtilisateur {
 
 
     public static function ajouterAuPanier(){
+        $tab_cat = ModelCategorie::selectAll();
         if(empty($_SESSION['panier'])){
             $_SESSION['panier'] = array();
         }
