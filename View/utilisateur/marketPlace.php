@@ -25,13 +25,8 @@ include "View/produit/categorie-selector.php";
             <img src="<?php echo $prod->get("lienImage") ?>" alt="" class="nft"/>
             <p><?php echo $prod->get("nomProduit") ?></p>
             <div class="market-detail">
-<!--                <p>--><?php //echo " IdProduit : " . " " . $idProduit ?><!--</p>-->
-                <p><?php echo $nomCategorie ?> </p>
-
-
+                <p><?php echo $nomCategorie ?></p>
                     <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>"><p>Voir plus</p></a>
-<!--                --><?php //echo $idCategorie ?>
-
             </div>
             <form method="get"  >
                 <input type="hidden" name="action" value="ajouterAuPanier"/>
@@ -39,9 +34,8 @@ include "View/produit/categorie-selector.php";
 
                 <input type="hidden" name="idProduit" value="<?php echo $idProduit ?>"/>
 
-                <input id="submit" type="submit" value = "Ajouter au panier"/></input>
+                <input class="button" type="submit" value = "Ajouter au panier"/>
             </form>
-<!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
         </div>
 
 

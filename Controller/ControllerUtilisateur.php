@@ -209,6 +209,7 @@ class ControllerUtilisateur {
         $controller = static::$object;
         $view = "marketPlace";
         $pagetitle = "Market place";
+        $tab_cat = ModelCategorie::selectAll();
 
         $tab_prod = ModelProduit::selectAll();
 
