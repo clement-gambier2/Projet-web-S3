@@ -13,19 +13,25 @@ include "View/produit/categorie-selector.php";
 
     <?php foreach ($produits as $p) {
         $idProduit = $p->get('idProduit');
-        $generique_produit = ModelProduit::select($idProduit);
+        $prod = ModelProduit::select($idProduit);
         $cat = ModelCategorie::select($_GET["categorie"]);
         $nomCategorie = $cat->get("nomCategorie");
     ?>
         <div class="card">
-            <img src="<?php echo $generique_produit->get("lienImage") ?>" alt="" class="nft"/>
-            <p><?php echo $generique_produit->get("nomProduit") ?></p>
+            <img src="<?php echo $prod->get("lienImage") ?>" alt="" class="nft"/>
+            <p><?php echo $prod->get("nomProduit") ?></p>
             <div class="market-detail">
-                <?php echo $nomCategorie ?>
-                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
+                <p><?php echo $nomCategorie ?></p>
+                <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>"><p>Voir plus</p></a>
             </div>
-            <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
+            <form method="get">
+                <input type="hidden" name="action" value="ajouterAuPanier"/>
+                <input type="hidden" name="controller" value="Utilisateur"/>
 
+                <input type="hidden" name="idProduit" value="<?php echo $idProduit ?>"/>
+
+                <input class="button" type="submit" value = "Ajouter au panier"/>
+            </form>
         </div>
 
     <?php } ?>
