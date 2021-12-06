@@ -257,6 +257,7 @@ class ControllerUtilisateur {
         $controller = static::$object;
         $view = "marketPlace";
         $pagetitle = "Market place";
+        $tab_cat = ModelCategorie::selectAll();
 
         $tab_prod = ModelProduit::selectAll();
 
@@ -274,6 +275,7 @@ class ControllerUtilisateur {
 
 
     public static function ajouterAuPanier(){
+        $tab_cat = ModelCategorie::selectAll();
         if(empty($_SESSION['panier'])){
             $_SESSION['panier'] = array();
         }

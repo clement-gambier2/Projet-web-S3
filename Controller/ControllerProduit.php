@@ -148,6 +148,7 @@ class ControllerProduit
     }
 
     public static function getByCategories(){
+        $tab_cat = ModelCategorie::selectAll();
         $categorie = $_GET['categorie'];
         $produits = ModelProduit::getByCategories($categorie);
         $controller = self::$object;
