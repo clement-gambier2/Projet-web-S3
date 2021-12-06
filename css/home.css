@@ -20,7 +20,10 @@
     margin-right: 50px;
 }
 
-
+#rocket{
+    width: 300px;
+    height: auto;
+}
 
 #popular{
     display:flex;

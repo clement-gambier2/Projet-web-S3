@@ -27,7 +27,7 @@ else {
     //echo "Barre de recherche marche pas";
     $controller='static';
     $view='error';
-    $pagetitle='Une erreur est survenue';
+    $pagetitle='Une erreur est survenue dans le routeur';
     require_once File::build_path(Array("View", "view.php"));
 }
 

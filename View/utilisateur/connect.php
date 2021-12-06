@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/form.css">
-<form class="glass2">
+<form class="glass2" method="post" action="index.php?controller=utilisateur&action=connected">
     <fieldset>
         <h2>Connexion</h2>
 
@@ -18,11 +18,11 @@
 
 
         <p>
-            <input type="submit" value="Se connecter" />
+            <input type="submit" value="Se connecter" id="submit"/>
         </p>
 
         <p>
-            <a href="index.php?action=create&controller=Utilisateur" id="boutonCreerCompte">Créer un compte</a>
+            <a href="index.php?action=create&controller=Utilisateur" id="submit">Créer un compte</a>
         </p>
     </fieldset>
 </form>

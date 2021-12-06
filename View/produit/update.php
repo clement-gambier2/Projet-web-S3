@@ -80,10 +80,6 @@
             <input type="number" placeholder="15" name="prixProduit" id="prixProduit"  value="<?php echo $prix; ?>" required/>
         </p>
 
-        <p>
-            <label for="quantiteProduit">Quantite du produit :</label>
-            <input type="number" placeholder="2" name="quantiteProduit" id="quantiteProduit" value="<?php echo $quantite; ?>" required/>
-        </p>
 
         <p>
             <label for="lienImage">Image du produit :</label>

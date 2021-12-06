@@ -1,6 +1,6 @@
 <form action="index.php?action=search&controller=Produit&" method="post">
-    <input name="recherche" id="recherche" type="text" placeholder="Type here">
-    <input id="submit" type="submit" value="Search">
+    <input name="recherche" id="search_bar" type="text" placeholder="Tapez un nom de produit">
+    <input class="button" type="submit" value="Rechercher">
 </form>
 
 <section id="categorie-selector">
@@ -9,7 +9,7 @@
     <div id="selector">
         <a href="index.php?action=marketPlace&controller=Utilisateur">Tout</a>
         <?php
-        $tab_cat = ModelCategorie::selectAll();
+
         foreach ($tab_cat as $c) {
             $nomCategorie = htmlspecialchars($c->get('nomCategorie'));
             $idCategorie = htmlspecialchars($c->get('idCategorie'));
