@@ -27,14 +27,14 @@ class ControllerCommande {
             $controller = static::$object;
             $view = "error";
             $pagetitle = "Erreur";
-            $erreur = File::build_path(array("view","view.php"));
+            $erreur = File::build_path(array("View","view.php"));
             require $erreur;
         }
         else{
             $controller = static::$object;
             $view = "detail";
             $pagetitle = "Detail";
-            $detail = File::build_path(array("view","view.php"));
+            $detail = File::build_path(array("View","view.php"));
             require $detail;
         }
     }
@@ -48,13 +48,13 @@ class ControllerCommande {
             $controller = self::$object;
             $view = 'deleted';
             $pagetitle = 'Commande supprimé';
-            require_once File::build_path(array("view", "view.php"));
+            require_once File::build_path(array("View", "view.php"));
         }
         else {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
-            require_once File::build_path(array("view", "view.php"));
+            require_once File::build_path(array("View", "view.php"));
         }
     }
 
@@ -65,7 +65,7 @@ class ControllerCommande {
         $view = "update";
         $pagetitle = "Créer une commande";
         $action = "created";
-        require File::build_path(array("view","view.php"));
+        require File::build_path(array("View","view.php"));
     }
 
     public static function created(){
@@ -144,7 +144,7 @@ class ControllerCommande {
         $view = "update";
         $pagetitle = "Mettre à jour une commande";
         $action = "updated";
-        $upd = File::build_path(array("view","view.php"));
+        $upd = File::build_path(array("View","view.php"));
         require $upd;
     }
 
@@ -154,7 +154,7 @@ class ControllerCommande {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue';
-            require_once File::build_path(array("view", "view.php"));
+            require_once File::build_path(array("View", "view.php"));
         }
         else{
             $idCommande = $_GET['idCommande'];

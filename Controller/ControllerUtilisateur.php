@@ -12,12 +12,20 @@ class ControllerUtilisateur {
 
 
     public static function readAll() {
-        $tab_uti = ModelUtilisateur::selectAll();     //appel au modèle pour gerer la BD
-        $controller = static::$object;
-        $view = "list";
-        $pagetitle = "Tout les utilisateurs";
-        $list = File::build_path(array("View","view.php"));
-        require $list;
+        if ($_SESSION['admin'] == 1) {
+            $tab_uti = ModelUtilisateur::selectAll();     //appel au modèle pour gerer la BD
+            $controller = static::$object;
+            $view = "list";
+            $pagetitle = "Tout les utilisateurs";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $list = File::build_path(array("View", "view.php"));
+            require $list;
+        }
     }
 
     public static function read(){
@@ -40,17 +48,26 @@ class ControllerUtilisateur {
     public static function delete(){
         $idUtilisateur = $_GET["idUtilisateur"];
         $tab_uti = ModelUtilisateur::selectAll();
-        if (ModelUtilisateur::delete($idUtilisateur)) {
-            $tab_uti = ModelUtilisateur::selectAll();
-            $controller = self::$object;
-            $view = 'deleted';
-            $pagetitle = 'Utilisateur supprimé';
+        if ($_SESSION['admin'] == 1) {
+            if (ModelUtilisateur::delete($idUtilisateur)) {
+                $tab_uti = ModelUtilisateur::selectAll();
+                $controller = self::$object;
+                $view = 'deleted';
+                $pagetitle = 'Utilisateur supprimé';
+            }
+            else {
+                $controller = self::$object;
+                $view = 'error';
+                $pagetitle = 'Une erreur est survenue lors du delete';
+            }
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
         }
-        else {
-            $controller = self::$object;
-            $view = 'error';
-            $pagetitle = 'Une erreur est survenue';
-        }
+
         require_once File::build_path(array("View", "view.php"));
     }
 
@@ -94,23 +111,43 @@ class ControllerUtilisateur {
             if (isset($_SESSION['admin']) && $_SESSION['admin'] = 1) { //si l'utilisateur est admin on affiche le panneau, sinon non
                 $tab_uti = ModelUtilisateur::selectAll();
                 $controller = self::$object;
-                $view = 'created';987654321abc
+                $view = 'created';
                 $pagetitle = 'Utilisateur créé';
                 require_once File::build_path(array("View", "view.php"));
             }
             else {
                 $pagetitle= 'Veuillez vous connecter';
+                $view = 'view';
                 require_once File::build_path(array("View", "view.php"));
             }
-            $mail = 'Cliquez sur le lien ci-dessous pour confirmer votre adresse mail : <br><br>
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~gambierc/Projet-Web-S3/index.php?action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/> <br><br>
-            L\'équipe NFT Factory';
-            mail($_POST["mail"], "Vérification de votre adresse mail", $mail);
+
+
+            $mail = 'Veuillez cliquer sur le lien ci-dessous pour vérifier votre compte
+                    https://webinfo.iutmontp.univ-montp2.fr/~gambierc/Projet-Web-S3/index.php?controller=utilisateur&action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"];
+
+            /*
+            <!DOCTYPE html>
+            <html lang="en" dir="ltr">
+            <head>
+                <meta charset="utf-8">
+            </head>
+
+            <body>
+            <p>Veuillez cliquer sur le lien ci-dessous pour vérifier votre compte</p>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~gambierc/Projet-Web-S3/index.php?controller=utilisateur&action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/> <br><br>
+            <p>L\'équipe NFT Factory</p>
+
+            </body>
+            </html>
+             */
+
+            mail($data["mailUtilisateur"], 'Vérification de votre adresse mail', $mail);
+
         }
         else {
             $controller = self::$object;
             $view = 'error';
-            $pagetitle = 'Une erreur est survenue';
+            $pagetitle = 'Une erreur est survenue lors de la création';
             require_once File::build_path(array("View", "view.php"));
         }
     }
@@ -125,11 +162,11 @@ class ControllerUtilisateur {
             $upd = File::build_path(array("View","view.php"));
             require $upd;
         } else {
-            echo "Veuillez vous connecter :";
-            $controller = self::$object;
-            $view = 'connect';
-            $pagetitle = 'Page de connexion';
-            require_once File::build_path(array("View", "utilisateur", "connect.php"));
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
         }
 
     }
@@ -158,7 +195,7 @@ class ControllerUtilisateur {
         else if (!isset($_POST["idUtilisateur"]) || !isset($_POST["nom"]) || !isset($_POST["prenom"]) || !isset($_POST["pseudo"]) || !isset($_POST["mail"]) || !isset($_POST["motDePasse"]) || !ModelUtilisateur::update($data)) {
             $controller = self::$object;
             $view = 'error';
-            $pagetitle = 'Une erreur est survenue';
+            $pagetitle = 'Une erreur est survenue lors de l\'update';
             require_once File::build_path(array("View", "view.php"));
         }
 
@@ -194,7 +231,7 @@ class ControllerUtilisateur {
 
                     if (ModelUtilisateur::isAdmin($pseudo)) {
                         $_SESSION['admin'] = 1;
-                        $controller = 'Admin';
+                        $controller = 'admin';
                         $view = 'list';
                         $pagetitle = 'Bienvenue ' . $pseudo . ' !';
                         $action='afficher';
@@ -202,11 +239,10 @@ class ControllerUtilisateur {
                     }
                     else {
                         $_SESSION['admin'] = 0;
-                        $controller = self::$object;
-                        $view = 'marketPlace';
+                        $controller = 'static';
+                        $view = 'home';
                         $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                        $tab_prod = ModelProduit::selectAll();
-                        require_once File::build_pat987654321abch(array("View", "view.php"));
+                        require_once File::build_path(array("View", "view.php"));
                     }
                 } else {
 
@@ -264,9 +300,18 @@ class ControllerUtilisateur {
     }
 
     public static function afficherPanier() {
-        $controller = static::$object;
-        $view = "panier";
-        $pagetitle = "Panier";
+        if ($_SESSION['login'] != NULL) {
+            $controller = static::$object;
+            $view = "panier";
+            $pagetitle = "Panier";
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        }
+
 
         require_once File::build_path(array("View","view.php"));
     }

@@ -15,13 +15,13 @@
     <ul>
         <li><a href="index.php">Accueil</a></li>
         <li><a href="index.php?action=marketPlace&controller=Utilisateur">Boutique</a></li>
-        <li><a href="#">Createurs</a></li>
         <?php
         if (isset($_SESSION['login'])) {
 
             echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier_icon" src="ressources/panier.png" alt=""></a></li>';
 
-            echo '<li><a href="index.php?action=update&controller=Utilisateur&idUtilisateur='. ModelUtilisateur::getUtilisateurByPseudo($_SESSION['login']) .'&pseudo='. $_SESSION['login'] .'">' . $_SESSION['login'] . '</a></li>';
+            $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);
+            echo '<li><a href="index.php?action=update&controller=Utilisateur&idUtilisateur='. $user->get('idUtilisateur') .'&pseudo='. $_SESSION['login'] .'">' . $_SESSION['login'] . '</a></li>';
             echo '<li><a href="index.php?action=deconnect&controller=Utilisateur">Déconnexion</a></li>';
 
             if ($_SESSION['admin'] == 1) {
@@ -43,10 +43,7 @@
 
 
 <?php
-    // Si $controleur='voiture' et $view='list',
-    // alors $filepath="/chemin_du_site/view/voiture/list.php"
-    $filepath = File::build_path(array("View", $controller, "$view.php"));
-    require $filepath;
+    require_once File::build_path(array("View", $controller, "$view.php"));
 ?>
 
 
