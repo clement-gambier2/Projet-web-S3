@@ -29,10 +29,35 @@ class ModelUtilisateur extends Model{
         return $requete->fetchColumn() == 1;
     }
 
-    public static function getUtilisateurByPseudo($pseudo) {
+    public static function getUtilisateurByPseudo($pseudo)
+    {
         $requete = Model::getPDO()->query('SELECT idUtilisateur FROM Utilisateur WHERE pseudo= "' . $pseudo . '"');
+    }
 
-        return $requete->fetchColumn();
+
+    public static function selectWithPseudo($pseudo){
+        $table_name = static::$object;
+        $class_name = "Model" . ucfirst($table_name);
+        $primary_key = "pseudo";
+
+        $sql = "SELECT * from ". $table_name ." WHERE " . $primary_key . "= :value";
+        // Préparation de la requête
+        $req_prep = Model::getPDO()->prepare($sql);
+
+        $values = array(
+            "value" => $pseudo,
+        );
+        // On donne les valeurs et on exécute la requête
+        $req_prep->execute($values);
+
+        // On récupère les résultats comme précédemment
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        $tab_user = $req_prep->fetchAll();
+        // Attention, si il n'y a pas de résultats, on renvoie false
+        if (empty($tab_user))
+            return false;
+        return $tab_user[0];
+
     }
 
     // Getter générique

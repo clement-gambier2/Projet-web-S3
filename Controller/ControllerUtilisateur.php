@@ -94,7 +94,7 @@ class ControllerUtilisateur {
             if (isset($_SESSION['admin']) && $_SESSION['admin'] = 1) { //si l'utilisateur est admin on affiche le panneau, sinon non
                 $tab_uti = ModelUtilisateur::selectAll();
                 $controller = self::$object;
-                $view = 'created';
+                $view = 'created';987654321abc
                 $pagetitle = 'Utilisateur créé';
                 require_once File::build_path(array("View", "view.php"));
             }
@@ -206,9 +206,10 @@ class ControllerUtilisateur {
                         $view = 'marketPlace';
                         $pagetitle = 'Bienvenue ' . $pseudo . ' !';
                         $tab_prod = ModelProduit::selectAll();
-                        require_once File::build_path(array("View", "view.php"));
+                        require_once File::build_pat987654321abch(array("View", "view.php"));
                     }
                 } else {
+
                     $controller = self::$object;
                     $view = 'error';
                     $pagetitle = 'Mauvais mot de passe';
@@ -292,6 +293,28 @@ class ControllerUtilisateur {
 
 
     }
+
+    public static function supprimerDuPanier(){
+
+
+        $p = ModelProduit::select($_GET['idProduit']);
+
+        $index = array_search(serialize($p),$_SESSION['panier']);
+
+        if(isset($index)){
+            unset($_SESSION['panier'][$index]);
+        }
+
+
+        $controller = static::$object;
+        $view = "panier";
+        $pagetitle = "Panier";
+
+        require_once File::build_path(array("View","view.php"));
+
+    }
+
+
 
     public static function deconnect() {
         session_unset();

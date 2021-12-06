@@ -136,12 +136,22 @@ class ControllerProduit
         require_once File::build_path(array("View", "view.php"));
     }
 
-    /*TODO : Barre de recherche Fonctionne pas encore, développement en cours */
     public static function search(){
         $recherche = $_POST['recherche'];
         $resulat = ModelProduit::search($recherche);
-        echo var_dump($resulat);
-        $view = "search";
+//        echo var_dump($resulat);
+        $p = ModelProduit::select($resulat);
+        $controller = self::$object;
+        $view = 'search';
+        $pagetitle = "Résultat de la recherche";
+        require_once File::build_path(array("View", "view.php"));
+    }
+
+    public static function getByCategories(){
+        $categorie = $_GET['categorie'];
+        $produits = ModelProduit::getByCategories($categorie);
+        $controller = self::$object;
+        $view = 'categorie';
         $pagetitle = "Résultat de la recherche";
         require_once File::build_path(array("View", "view.php"));
     }

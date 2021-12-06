@@ -33,25 +33,36 @@
 
         // Cas de l'update
 
-        if(isset($tab_produitChecked)){
-            foreach($tab_produitChecked as $p){
-                $prodName = $p->get('nomProduit');
-                $prodId = $p->get('idProduit');
 
-                if(in_array($p, $tab_prod)){
-                    $key = array_search($p, $tab_prod);
-                    unset($tab_prod[$key]);
-                    echo "<input checked type='checkbox' name='produit[]' value='" . rawurlencode($prodId) . "'>$prodName</input><br>";
-                }
-            }
-        }
 
         foreach ($tab_prod as $prod){
+
+
             $prodName = $prod->get('nomProduit');
             $prodId = $prod->get('idProduit');
 
-            // Cas du create
+            if(isset($tab_produitChecked)){
+
+                foreach($tab_produitChecked as $p){
+
+                    $prodNameChecked = $p->get('nomProduit');
+                    $prodIdChecked = $p->get('idProduit');
+
+                    if($prodId == $prodIdChecked){
+
+                        $key = array_search($p, $tab_prod);
+                        unset($tab_prod[$key]);
+
+                        echo "<input checked type='checkbox' name='produit[]' value='" . rawurlencode($prodIdChecked) . "$prodNameChecked</input><br>";
+                    }
+
+                }
+            }
+
             echo "<input type='checkbox' name='produit[]' value='" . rawurlencode($prodId) . "'>$prodName</input><br>";
+
+
+            // Cas du create
 
         }
     ?>
