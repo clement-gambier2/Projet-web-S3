@@ -71,21 +71,30 @@ class ControllerUtilisateur {
             "prenomUtilisateur" => $_POST["prenom"],
             "pseudo" => $_POST["pseudo"],
             "mailUtilisateur" => $_POST["mail"],
-            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"])
+            "motDePasseUtilisateur" => Security::hacher($_POST["motDePasse"]),
+            "nonce" => Security::generateRandomHex()
         );
         $pseudo = $_POST["pseudo"];
 
         if ($_POST["motDePasse"] != $_POST["verifMotDePasse"]) {
             $controller = self::$object;
-            $view = 'errorMdp';
+            $view = 'error';
             $pagetitle = 'Erreur mot de passe';
+            echo "Les mots de passes ne correspondent pas";
+            require_once File::build_path(array("View", "view.php"));
+        }
+        else if (filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL) == false){
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur mail';
+            echo "L'adresse mail n'est pas valide";
             require_once File::build_path(array("View", "view.php"));
         }
         else if (ModelUtilisateur::save($data)) {
             if (isset($_SESSION['admin']) && $_SESSION['admin'] = 1) { //si l'utilisateur est admin on affiche le panneau, sinon non
                 $tab_uti = ModelUtilisateur::selectAll();
                 $controller = self::$object;
-                $view = 'created';
+                $view = 'created';987654321abc
                 $pagetitle = 'Utilisateur créé';
                 require_once File::build_path(array("View", "view.php"));
             }
@@ -93,6 +102,10 @@ class ControllerUtilisateur {
                 $pagetitle= 'Veuillez vous connecter';
                 require_once File::build_path(array("View", "view.php"));
             }
+            $mail = 'Cliquez sur le lien ci-dessous pour confirmer votre adresse mail : <br><br>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~gambierc/Projet-Web-S3/index.php?action=validate&nonce=' . $data["nonce"] . '&pseudo=' . $data["pseudo"] . '"/> <br><br>
+            L\'équipe NFT Factory';
+            mail($_POST["mail"], "Vérification de votre adresse mail", $mail);
         }
         else {
             $controller = self::$object;
@@ -165,37 +178,46 @@ class ControllerUtilisateur {
     }
 
     public static function connected(){
-            if (!isset($_GET['pseudo']) || !isset($_GET['motDePasse'])) {
+            if (!isset($_POST['pseudo']) || !isset($_POST['motDePasse'])) {
                 $controller = self::$object;
                 $view = 'error';
                 $pagetitle = 'Erreur de connexion';
                 require_once File::build_path(array("View", "view.php"));
             }
 
-            $pseudo = $_GET['pseudo'];
-            $mdp = Security::hacher($_GET['motDePasse']);
+            $pseudo = $_POST['pseudo'];
+            $mdp = Security::hacher($_POST['motDePasse']);
 
             if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
-                $_SESSION['login'] = $pseudo;
-                $user = ModelUtilisateur::selectWithPseudo($pseudo);
-                $_SESSION['idUser'] = $user->get('idUtilisateur');
+                if (ModelUtilisateur::checkMail($pseudo)) {
+                    $_SESSION['login'] = $pseudo;
 
-                if (ModelUtilisateur::isAdmin($pseudo)) {
-                    $_SESSION['admin'] = 1;
-                    $controller = 'Admin';
-                    $view = 'list';
-                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                    $action='afficher';
-                    require_once File::build_path(array("View", "view.php"));
-                }
-                else {
-                    $_SESSION['admin'] = 0;
+                    if (ModelUtilisateur::isAdmin($pseudo)) {
+                        $_SESSION['admin'] = 1;
+                        $controller = 'Admin';
+                        $view = 'list';
+                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                        $action='afficher';
+                        require_once File::build_path(array("View", "view.php"));
+                    }
+                    else {
+                        $_SESSION['admin'] = 0;
+                        $controller = self::$object;
+                        $view = 'marketPlace';
+                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                        $tab_prod = ModelProduit::selectAll();
+                        require_once File::build_pat987654321abch(array("View", "view.php"));
+                    }
+                } else {
+
                     $controller = self::$object;
-                    $view = 'marketPlace';
-                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                    $tab_prod = ModelProduit::selectAll();
+                    $view = 'error';
+                    $pagetitle = 'Mauvais mot de passe';
+                    echo "Veuillez vérifier votre adresse mail";
                     require_once File::build_path(array("View", "view.php"));
                 }
+                
+                
             }
             else {
                 $controller = self::$object;
@@ -203,6 +225,32 @@ class ControllerUtilisateur {
                 $pagetitle = 'Mauvais mot de passe';
                 require_once File::build_path(array("View", "view.php"));
             }
+    }
+
+    public static function validate() {
+        if (!isset($_GET['pseudo']) || !isset($_GET['nonce'])) {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur de vérification du mail';
+            require_once File::build_path(array("View", "view.php"));
+        }
+
+        $requete = Model::getPDO()->query('SELECT nonce FROM Utilisateur WHERE pseudo="' . $_GET['pseudo'] . '"'); //gérer le cas ou le pseudo est pas bon et ou le nonce est déjà à null
+        if ($requete->fetchColumn() == $_GET['nonce']) {
+            $change = Model::getPDO()->prepare('UPDATE Utilisateur SET nonce=NULL WHERE pseudo="' . $_GET['pseudo'] . '"');
+            $change->execute();
+            $controller = self::$object;
+            $view = 'marketPlace';
+            $pagetitle = 'Merci d\'avoir vérifié votre mail!';
+            $tab_prod = ModelProduit::selectAll();
+            require_once File::build_path(array("View", "view.php"));
+        } else {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur de vérification de l\'adresse mail';
+            require_once File::build_path(array("View", "view.php"));
+        }
+        
     }
 
     public static function marketPlace() {
@@ -271,8 +319,9 @@ class ControllerUtilisateur {
     public static function deconnect() {
         session_unset();
         $controller = self::$object;
-        $view = 'detail';
+        $view = 'marketPlace';
         $pagetitle = 'Déconnexion réussie';
+        $tab_prod = ModelProduit::selectAll();
         require_once File::build_path(array("View", "view.php"));
     }
 }
