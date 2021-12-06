@@ -45,17 +45,14 @@ main{
 
 .main-panier{
     margin-left: 39%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card-panier {
     min-width: 30%;
     max-width: 300px;
-
     color: black;
     padding: 5px 5px;
     filter: drop-shadow(0 0 0.75rem white);
@@ -68,7 +65,17 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
+#order{
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
 #categorie-selector{
     margin-top:10px;
 }
