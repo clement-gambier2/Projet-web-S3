@@ -16,17 +16,13 @@ include "View/produit/categorie-selector.php";
         $generique_produit = ModelProduit::select($idProduit);
         $cat = ModelCategorie::select($_GET["categorie"]);
         $nomCategorie = $cat->get("nomCategorie");
-
-
-        ?>
+    ?>
         <div class="card">
             <img src="<?php echo $generique_produit->get("lienImage") ?>" alt="" class="nft"/>
             <p><?php echo $generique_produit->get("nomProduit") ?></p>
             <div class="market-detail">
                 <?php echo $nomCategorie ?>
                 <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>">Voir plus</a>
-
-
             </div>
             <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
 
