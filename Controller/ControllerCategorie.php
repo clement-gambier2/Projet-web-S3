@@ -72,11 +72,9 @@ class ControllerCategorie {
 
     public static function delete() {
         $idC= $_GET['idCategorie'];
+        $c = ModelCategorie::select($idC);
 
-        try {
-            $c = ModelCategorie::select($idC);
-            $c -> delete($idC);
-
+        if($c -> delete($idC)){
             $tab_cat = ModelCategorie::selectAll();
 
             $controller = self::$object;
@@ -84,14 +82,17 @@ class ControllerCategorie {
             $pagetitle='Supprimer une categorie';
             require_once File::build_path(array("View", "view.php"));
         }
-        catch (PDOException $e) {
-            if (Config::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
+        else{
+            $tab_cat = ModelCategorie::selectAll();
+
+            echo "Impossible de supprimer cette catégorie elle contient des produits !!!";
+            $controller = self::$object;
+            $view = 'list';
+            $pagetitle = 'Une erreur est survenue en updatant la catégorie';
+
+            require_once File::build_path(array("View", "view.php"));
         }
+
 
     }
 
