@@ -28,7 +28,7 @@ include "View/produit/categorie-selector.php";
                 <p><?php echo $nomCategorie ?></p>
                     <a href="index.php?action=read&controller=Produit&idProduit=<?php echo $idProduit ?>"><p>Voir plus</p></a>
             </div>
-            <form method="get"  >
+            <form method="get">
                 <input type="hidden" name="action" value="ajouterAuPanier"/>
                 <input type="hidden" name="controller" value="Utilisateur"/>
 
