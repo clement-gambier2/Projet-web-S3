@@ -4,8 +4,8 @@
 }
 
 body{
-    background: rgb(246,77,27);
-    background: linear-gradient(to right, #ad5389, #3c1053) fixed;
+    background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+    background-attachment: fixed;
     height: 100%;
     color: #fff;
     font-family: 'Josefin Sans', sans-serif;
@@ -87,6 +87,11 @@ a{
 #panier_icon{
     width: 35px;
     filter: invert(1);
+}
+
+#search_bar{
+    padding: 5px 50px;
+
 }
 
 
