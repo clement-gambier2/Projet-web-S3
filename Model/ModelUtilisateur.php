@@ -29,11 +29,6 @@ class ModelUtilisateur extends Model{
         return $requete->fetchColumn() == 1;
     }
 
-    public static function getUtilisateurByPseudo($pseudo)
-    {
-        $requete = Model::getPDO()->query('SELECT idUtilisateur FROM Utilisateur WHERE pseudo= "' . $pseudo . '"');
-    }
-
 
     public static function selectWithPseudo($pseudo){
         $table_name = static::$object;

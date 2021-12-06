@@ -61,7 +61,6 @@ class ControllerProduit
             "descriptionProduit" => $_POST["descriptionProduit"],
             "idCategorie" => $_POST["idCategorie"],
             "prixProduit" => $_POST["prixProduit"],
-            "quantiteProduit" => $_POST["quantiteProduit"]
         );
         if (ModelProduit::save($data)) {
             $tab_p = ModelProduit::selectAll();
@@ -72,7 +71,7 @@ class ControllerProduit
         } else {
             $controller = self::$object;
             $view = 'error';
-            $pagetitle = 'Une erreur est survenue';
+            $pagetitle = 'Une erreur est survenue en créant le produit';
             require_once File::build_path(array("View", "view.php"));
         }
     }
@@ -89,7 +88,7 @@ class ControllerProduit
         $controller = 'produit';
         $view = 'deleted';
         $pagetitle = 'Supprimer un produit';
-        require_once File::build_path(array("view", "produit", "deleted.php"));
+        require_once File::build_path(array("View", "view.php"));
     }
 
     public static function update()
@@ -116,13 +115,12 @@ class ControllerProduit
             "descriptionProduit" => $_POST['descriptionProduit'],
             "idCategorie" => $_POST['idCategorie'],
             "prixProduit" => $_POST['prixProduit'],
-            "quantiteProduit" => $_POST['quantiteProduit'],
             "lienImage" => $_POST['lienImage']
 
         );
 
 
-        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["quantiteProduit"]) || !isset($_POST["lienImage"]) || !ModelProduit::update($data)) {
+        if (!isset($_POST["idProduit"]) || !isset($_POST["nomProduit"]) || !isset($_POST["descriptionProduit"]) || !isset($_POST["idCategorie"]) || !isset($_POST["prixProduit"]) || !isset($_POST["lienImage"]) || !ModelProduit::update($data)) {
             $controller = self::$object;
             $view = 'error';
             $pagetitle = 'Une erreur est survenue en updatant le produit';
