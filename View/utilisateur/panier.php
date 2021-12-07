@@ -10,16 +10,22 @@
     if(isset($_SESSION['panier'])){
         foreach($_SESSION['panier'] as $p){
 
+
             $produit = unserialize($p);
 
-            $idProduit = $produit->get("idProduit");
-            $idCategorie = $produit->get("idCategorie");
-            $nomProduit = $produit->get('nomProduit');
+            foreach ($tab_prod as $pInDataBase){
+                if($pInDataBase->get('idProduit') == $produit->get('idProduit')){
 
-            $prixProduit = $produit->get('prixProduit');
-            $prixTotal += $prixProduit;
+                    $idProduit = $produit->get("idProduit");
+                    $idCategorie = $produit->get("idCategorie");
+                    $nomProduit = $produit->get('nomProduit');
 
-            $nomCategorie = (new ModelCategorie)->getNomCategorie($idCategorie);
+                    $prixProduit = $produit->get('prixProduit');
+                    $prixTotal += $prixProduit;
+
+                    $nomCategorie = (new ModelCategorie)->getNomCategorie($idCategorie);
+
+
         ?>
             <div class='card-panier'>
                 <img class="nft" src="<?php echo $produit->get("lienImage") ?>" alt="" class="nft"/>
@@ -37,6 +43,8 @@
 
 
           <?php
+            }
+          }
         }
         ?>
 

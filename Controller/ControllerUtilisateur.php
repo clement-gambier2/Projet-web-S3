@@ -301,7 +301,10 @@ class ControllerUtilisateur {
     }
 
     public static function afficherPanier() {
+
         if ($_SESSION['login'] != NULL) {
+            $tab_prod = ModelProduit::selectAll();
+
             $controller = static::$object;
             $view = "panier";
             $pagetitle = "Panier";
@@ -343,6 +346,7 @@ class ControllerUtilisateur {
 
     public static function supprimerDuPanier(){
 
+        $tab_prod = ModelProduit::selectAll();
 
         $p = ModelProduit::select($_GET['idProduit']);
 

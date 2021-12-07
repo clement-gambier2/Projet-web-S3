@@ -1,4 +1,10 @@
 <?php
 echo '<p>La commande à bien été annulée.</p>';
-require_once File::build_path(array("View","commande","list.php"));
+if($action == "mesCommandes"){
+    require_once File::build_path(array("View","commande","commandeUser.php"));
+}
+else{
+    require_once File::build_path(array("View","commande","list.php"));
+
+}
 ?>
