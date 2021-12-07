@@ -14,9 +14,7 @@ require_once File::build_path(array("Controller", "routeur.php"));
                 <p class="title">Find rare digital art and collect NFTs</p>
                 <div id="explore_button"><a href="index.php?action=marketPlace&controller=Utilisateur">Explore</a></div>
             </div>
-            <canvas>
-                ANIMATION THREE JS
-            </canvas>
+            <img src="ressources/rocket-dynamic-color.png" id="rocket">
         </article>
 
 
@@ -42,8 +40,8 @@ require_once File::build_path(array("Controller", "routeur.php"));
     </section>
 
 <form action="index.php?action=search&controller=Produit&" method="post">
-    <input name="recherche" id="recherche" type="text" placeholder="Type here">
-    <input id="submit" type="submit" value="Search">
+    <input name="recherche" id="search_bar" type="text" placeholder="Tapez un nom de produit">
+    <input class="button" type="submit" value="Rechercher">
 </form>
 
 

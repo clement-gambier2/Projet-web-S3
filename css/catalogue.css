@@ -12,6 +12,7 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 20px;
 }
 img{
     margin-top: 10px;
@@ -44,44 +45,54 @@ main{
 
 .main-panier{
     margin-left: 39%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.card-panier{
+.card-panier {
     min-width: 30%;
     max-width: 300px;
-
-    color:black;
+    color: black;
     padding: 5px 5px;
     filter: drop-shadow(0 0 0.75rem white);
-    background: rgba( 255, 255, 255, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 6px );
-    -webkit-backdrop-filter: blur( 6px );
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    display:flex;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+#order{
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
 #categorie-selector{
     margin-top:10px;
 }
 
 #selector{
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #selector a{
-    background-color: #FAD961;
-    background-image: linear-gradient(90deg, #FAD961 0%, #F76B1C 100%);
-    border-radius: 15px;
-    padding: 5px;
-    margin-top:20px;
-    color: #fff;
+    background-color:white;
+    padding: 15px 50px;
+    margin: 20px 20px;
+    color:black;
+    text-align: center;
+    filter: drop-shadow(0 0 0.75rem white);
+    border: none;
 }
 
 .p-panier{

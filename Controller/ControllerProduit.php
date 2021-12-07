@@ -137,7 +137,6 @@ class ControllerProduit
     public static function search(){
         $recherche = $_POST['recherche'];
         $resulat = ModelProduit::search($recherche);
-//        echo var_dump($resulat);
         $p = ModelProduit::select($resulat);
         $controller = self::$object;
         $view = 'search';
@@ -146,6 +145,7 @@ class ControllerProduit
     }
 
     public static function getByCategories(){
+        $tab_cat = ModelCategorie::selectAll();
         $categorie = $_GET['categorie'];
         $produits = ModelProduit::getByCategories($categorie);
         $controller = self::$object;

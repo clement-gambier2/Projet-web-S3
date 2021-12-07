@@ -293,6 +293,7 @@ class ControllerUtilisateur {
         $controller = static::$object;
         $view = "marketPlace";
         $pagetitle = "Market place";
+        $tab_cat = ModelCategorie::selectAll();
 
         $tab_prod = ModelProduit::selectAll();
 
@@ -300,7 +301,10 @@ class ControllerUtilisateur {
     }
 
     public static function afficherPanier() {
+
         if ($_SESSION['login'] != NULL) {
+            $tab_prod = ModelProduit::selectAll();
+
             $controller = static::$object;
             $view = "panier";
             $pagetitle = "Panier";
@@ -319,6 +323,7 @@ class ControllerUtilisateur {
 
 
     public static function ajouterAuPanier(){
+        $tab_cat = ModelCategorie::selectAll();
         if(empty($_SESSION['panier'])){
             $_SESSION['panier'] = array();
         }
@@ -341,6 +346,7 @@ class ControllerUtilisateur {
 
     public static function supprimerDuPanier(){
 
+        $tab_prod = ModelProduit::selectAll();
 
         $p = ModelProduit::select($_GET['idProduit']);
 
