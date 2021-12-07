@@ -6,6 +6,26 @@ require_once File::build_path(array("Model","ModelUtilisateur.php"));
 class ControllerCommande {
     protected static $object = "commande";
 
+    public static function afficherCommandeUser(){
+
+        if(isset($_SESSION['login'])){
+            $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);
+            $userId = $user->get('idUtilisateur');
+
+            $tab_com = ModelCommande::getAllCommandes($userId);
+
+            $controller = static::$object;
+            $view = "commandeUser";
+            $pagetitle = "Mes commandes";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+
+        }
+        else{
+            echo "Connectez vous";
+        }
+
+    }
 
     public static function readAll() {
         $tab_com = ModelCommande::selectAll();     //appel au modèle pour gerer la BD
@@ -15,6 +35,8 @@ class ControllerCommande {
         $list = File::build_path(array("View","view.php"));
         require $list;
     }
+
+
 
     public static function read(){
         $idC = $_GET['idCommande'];
@@ -31,6 +53,7 @@ class ControllerCommande {
             require $erreur;
         }
         else{
+            $type = $_GET['type'];
             $controller = static::$object;
             $view = "detail";
             $pagetitle = "Detail";
@@ -43,12 +66,29 @@ class ControllerCommande {
         $idCommande = $_GET["idCommande"];
         $tab_com = ModelProduit::selectAll();
         if (ModelCommande::delete($idCommande)) {
-            $tab_com = ModelCommande::selectAll();
+            if(isset($_GET['mesCommande'])){
+                $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);
+                $userId = $user->get('idUtilisateur');
 
-            $controller = self::$object;
-            $view = 'deleted';
-            $pagetitle = 'Commande supprimé';
-            require_once File::build_path(array("View", "view.php"));
+                $tab_com = ModelCommande::getAllCommandes($userId);
+
+                $action = "mesCommandes";
+                $controller = self::$object;
+                $view = 'deleted';
+                $pagetitle = 'Commande supprimé';
+                require_once File::build_path(array("View", "view.php"));
+            }
+            else{
+                $tab_com = ModelCommande::selectAll();
+
+                $action = "autre";
+
+                $controller = self::$object;
+                $view = 'deleted';
+                $pagetitle = 'Commande supprimé';
+                require_once File::build_path(array("View", "view.php"));
+            }
+
         }
         else {
             $controller = self::$object;
@@ -99,25 +139,29 @@ class ControllerCommande {
 
     public static function createCommandePanier(){
 
-        $data = array();
-        $produits = $_SESSION['panier'];
-        $idUtilisateur = $_SESSION['idUser'];
 
-        if(isset($produits) || isset($idUtilisateur)){
+        if(isset($_SESSION['panier']) && isset($_SESSION['login'])){
+
+            $data = array();
+            $produits = $_SESSION['panier'];
+            $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);
+            $idUtilisateur = $user->get('idUtilisateur');
+            $tab_prod_all = ModelProduit::selectAll();
+
             ModelCommande::saveCommande($idUtilisateur, $data);
 
             foreach($produits as $p){
                 $produit = unserialize($p);
-                $prodId = $produit->get('idProduit');
-                ModelCommande::saveProduitsCommande($idUtilisateur, $prodId);
+                foreach ($tab_prod_all as $prodInDatabase){
+                    $prodId = $produit->get('idProduit');
 
-                $index = array_search(serialize($produit),$_SESSION['panier']);
-
-                if(isset($index)){
-                    unset($_SESSION['panier'][$index]);
+                    if($prodInDatabase->get('idProduit') == $prodId){
+                        ModelCommande::saveProduitsCommande($idUtilisateur, $prodId);
+                    }
                 }
-
             }
+            $_SESSION['panier'] = array();
+
             echo "Commande passé";
             $controller = 'Utilisateur';
             $view = 'panier';

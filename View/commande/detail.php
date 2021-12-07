@@ -28,7 +28,10 @@ echo '<p> Prix total : ' . $prixTotal . '</p>';
 
 
 echo '</p> <a href="index.php?controller=commande&action=delete&idCommande=' . rawurlencode($idCommande) . ' "> supprimer la commande </a>';
-echo '</p> <a href="index.php?controller=commande&action=update&idUtilisateur='. rawurlencode($idUtilisateur). '&idCommande=' . rawurlencode($idCommande) . ' "> modifier la commande </a>';
+if(!isset($type)){
+    echo '</p> <a href="index.php?controller=commande&action=update&idUtilisateur='. rawurlencode($idUtilisateur). '&idCommande=' . rawurlencode($idCommande) . ' "> modifier la commande </a>';
+
+}
 
 /*
 echo '</p> <a href="index.php?controller=Utilisateur&&action=update&&idUtilisateur=' . $idurl . ' "> modifier l utilisateur </a>';
