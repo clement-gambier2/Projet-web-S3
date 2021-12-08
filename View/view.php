@@ -18,6 +18,7 @@
         <?php
         if (isset($_SESSION['login'])) {
 
+            echo'<li><a href="index.php?action=afficherCommandeUser&controller=Commande">Mes commandes</a></li>';
             echo'<li><a href="index.php?action=afficherPanier&controller=Utilisateur"><img id = "panier_icon" src="ressources/panier.png" alt=""></a></li>';
 
             $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);

@@ -59,6 +59,31 @@ class ModelCommande extends Model{
     }
     */
 
+    public static function getAllCommandes($idUtilisateur){
+        try {
+            $table_name = static::$object;
+            $class_name = "Model" . ucfirst($table_name);
+
+            $sql = "SELECT * FROM " . $table_name . " WHERE idUtilisateur = :value";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "value" => $idUtilisateur
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+            $tab = $req_prep->fetchAll();
+
+            return $tab;
+        }
+        catch (PDOException $e){
+            if (Config::getDebug()) {
+                echo $e->getMessage()."<br>"; // affiche un message d'erreur
+            }
+            return false;
+        }
+    }
+
     public static function delete($primary_value){
         $table_name = 'ProduitsCommande';
         $primary_key = static::$primary;
@@ -71,6 +96,8 @@ class ModelCommande extends Model{
             );
 
             $req_prep->execute($values);
+
+
         }
         catch(PDOException $e) {
             if (Config::getDebug()) {
