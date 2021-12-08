@@ -59,15 +59,19 @@
             <select name="idCategorie">
                 <?php
 
+
                     foreach ($tab_categorie as $cat) {
-                        $categorie = $cat->get('idCategorie');
+
+                        $idCategorie = $cat->get('idCategorie');
+                        $categorie = $cat->get('nomCategorie');
+
                         if($categorie == $idCategorie)
                         {
-                            echo "<option selected value='$categorie'>$categorie</option>";
+                            echo "<option selected value='$idCategorie'>$categorie</option>";
                         }
                         else{
 
-                            echo "<option value='$categorie'>$categorie</option>";
+                            echo "<option value='$idCategorie'>$categorie</option>";
                         }
 
 
