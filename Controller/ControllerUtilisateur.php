@@ -354,14 +354,22 @@ class ControllerUtilisateur {
 
         if(isset($index)){
             unset($_SESSION['panier'][$index]);
+
+            $controller = static::$object;
+            $view = "panier";
+            $pagetitle = "Panier";
+
+            require_once File::build_path(array("View","view.php"));
+        }
+        else{
+            $view = "error";
+            $pagetitle = "Erreur";
+            $erreur = File::build_path(array("View","view.php"));
+            require $erreur;
         }
 
 
-        $controller = static::$object;
-        $view = "panier";
-        $pagetitle = "Panier";
 
-        require_once File::build_path(array("View","view.php"));
 
     }
 

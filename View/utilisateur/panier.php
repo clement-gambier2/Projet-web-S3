@@ -8,7 +8,7 @@
 
     $prixTotal = 0;
 
-    if(isset($_SESSION['panier'])){
+    if(isset($_SESSION['panier']) && count($_SESSION['panier']) != 0){
         foreach($_SESSION['panier'] as $p){
 
 
@@ -41,22 +41,27 @@
                     <input class="button" type="submit" value = "Supprimer du panier"/></input>
                 </form>
             </div>
-
-
-          <?php
-            }
-          }
-        }
-        ?>
-</main>
-        <section id="order">
-            <h2 id="prix-total">Le prix total est de : <?php echo $prixTotal?></h2>
-            <form method="get" id="passer-commande">
+            </main>
+            <section id="order">
+                <h2 id="prix-total">Le prix total est de : <?php echo $prixTotal?></h2>
+                <form method="get" id="passer-commande">
                     <input type="hidden" name="action" value="createCommandePanier"/>
                     <input type="hidden" name="controller" value="Commande"/>
                     <input class="button" type="submit" value = "Passer la commande"/>
-            </form>
-        </section>
+                </form>
+            </section>
+
+          <?php
+            }
+                else{
+                    echo "<h2>le pannier est vide !</h2>";
+                    break;
+
+                }
+          }
+        }
+        ?>
+
     <?php
     }
     else{
