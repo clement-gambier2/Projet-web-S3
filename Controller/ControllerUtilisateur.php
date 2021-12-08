@@ -315,10 +315,7 @@ class ControllerUtilisateur {
                     if($pInDataBase->get('idProduit') == $produit->get('idProduit')) {
                         array_push($tab_prod, $produit);
                     }
-
                 }
-
-
             }
 
             $controller = static::$object;
