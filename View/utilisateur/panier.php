@@ -14,8 +14,8 @@
 
             $produit = unserialize($p);
 
+
             foreach ($tab_prod as $pInDataBase){
-                if($pInDataBase->get('idProduit') == $produit->get('idProduit')){
 
                     $idProduit = $produit->get("idProduit");
                     $idCategorie = $produit->get("idCategorie");
@@ -53,21 +53,11 @@
 
           <?php
             }
-                else{
-                    echo "<h2>le pannier est vide !</h2>";
-                    break;
-
-                }
           }
         }
+      else{
+          echo "<h2>le pannier est vide !</h2>";
+      }
         ?>
 
-    <?php
-    }
-    else{
-        echo "<h2>le pannier est vide !</h2>";
-    }
-
-
-?>
 
