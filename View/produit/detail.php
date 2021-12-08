@@ -23,8 +23,15 @@
         <p>  Prix : <?php echo $prix ?>€ </p>
         <p> Quantité en stock : <?php echo $quantiteProduit ?></p>
     </div>
-    <button type="submit" name="idProduit" class="button">Ajouter au panier</button>
-    <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
+
+    <form method="get">
+        <input type="hidden" name="action" value="ajouterAuPanier"/>
+        <input type="hidden" name="controller" value="Utilisateur"/>
+
+        <input type="hidden" name="idProduit" value="<?php echo $idProduit ?>"/>
+
+        <input class="button" type="submit" value = "Ajouter au panier"/>
+    </form>    <!--                <input type="submit" name="idProduit" value ="Ajouter au panier" style="background-color: #3c1053"/>-->
 
 </section>
 
