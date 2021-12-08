@@ -1,5 +1,6 @@
 <?php
     foreach($tab_prod as $p) {
+//        var_dump($p);
         $idProduit = $p->get("idProduit");
         $idCategorie = $p->get("idCategorie");
         $nomCategorie = (new ModelCategorie)->getNomCategorie($idCategorie);

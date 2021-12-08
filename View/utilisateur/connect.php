@@ -18,11 +18,11 @@
 
 
         <p>
-            <input type="submit" value="Se connecter" id="submit"/>
+            <input type="submit" value="Se connecter" class="button"/>
         </p>
 
         <p>
-            <a href="index.php?action=create&controller=Utilisateur" id="submit">Créer un compte</a>
+            <a href="index.php?action=create&controller=Utilisateur" class="button">Créer un compte</a>
         </p>
     </fieldset>
 </form>

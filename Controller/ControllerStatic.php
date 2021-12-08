@@ -18,11 +18,17 @@ class ControllerStatic
             $random = rand(1, $size);
             while (in_array($random, $tab)) { //Tant que random génère un nombre déjà trouvé il ressaye
                 $random = rand(1, $size);
+
             }
             array_push($tab, $random);
 
             $p = ModelProduit::select($random);
+            if (!$p){
+                $i--;
+                continue;
+            }
             array_push($tab_prod,$p);
+
 
         }
 
