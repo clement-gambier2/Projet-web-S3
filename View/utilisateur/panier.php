@@ -8,14 +8,8 @@
 
     $prixTotal = 0;
 
-    if(isset($_SESSION['panier'])){
-        foreach($_SESSION['panier'] as $p){
-
-
-            $produit = unserialize($p);
-
-            foreach ($tab_prod as $pInDataBase){
-                if($pInDataBase->get('idProduit') == $produit->get('idProduit')){
+    if(isset($_SESSION['panier']) && count($_SESSION['panier']) != 0){
+        foreach($tab_prod as $produit){
 
                     $idProduit = $produit->get("idProduit");
                     $idCategorie = $produit->get("idCategorie");
@@ -44,25 +38,23 @@
 
 
           <?php
-            }
+
           }
-        }
         ?>
-</main>
+        </main>
         <section id="order">
             <h2 id="prix-total">Le prix total est de : <?php echo $prixTotal?></h2>
             <form method="get" id="passer-commande">
-                    <input type="hidden" name="action" value="createCommandePanier"/>
-                    <input type="hidden" name="controller" value="Commande"/>
-                    <input class="button" type="submit" value = "Passer la commande"/>
+                <input type="hidden" name="action" value="createCommandePanier"/>
+                <input type="hidden" name="controller" value="Commande"/>
+                <input class="button" type="submit" value = "Passer la commande"/>
             </form>
         </section>
-    <?php
-    }
-    else{
-        echo "<h2>le pannier est vide !</h2>";
-    }
+        <?php
+        }
+      else{
+          echo "<h2>le pannier est vide !</h2>";
+      }
+        ?>
 
-
-?>
 

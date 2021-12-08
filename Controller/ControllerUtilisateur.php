@@ -303,7 +303,20 @@ class ControllerUtilisateur {
     public static function afficherPanier() {
 
         if ($_SESSION['login'] != NULL) {
-            $tab_prod = ModelProduit::selectAll();
+            $tab_prod_database = ModelProduit::selectAll();
+
+            $tab_prod = array();
+
+            foreach($_SESSION['panier'] as $p){
+                $produit = unserialize($p);
+
+                foreach ($tab_prod_database as $pInDataBase){
+
+                    if($pInDataBase->get('idProduit') == $produit->get('idProduit')) {
+                        array_push($tab_prod, $produit);
+                    }
+                }
+            }
 
             $controller = static::$object;
             $view = "panier";
@@ -354,14 +367,22 @@ class ControllerUtilisateur {
 
         if(isset($index)){
             unset($_SESSION['panier'][$index]);
+
+            $controller = static::$object;
+            $view = "panier";
+            $pagetitle = "Panier";
+
+            require_once File::build_path(array("View","view.php"));
+        }
+        else{
+            $view = "error";
+            $pagetitle = "Erreur";
+            $erreur = File::build_path(array("View","view.php"));
+            require $erreur;
         }
 
 
-        $controller = static::$object;
-        $view = "panier";
-        $pagetitle = "Panier";
 
-        require_once File::build_path(array("View","view.php"));
 
     }
 
