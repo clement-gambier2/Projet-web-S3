@@ -10,9 +10,9 @@ require_once File::build_path(array("Controller", "routeur.php"));
 
         <article id="welcome-header">
             <div>
-                <p class="title">The NFT world at a few clicks</p>
-                <p class="title">Find rare digital art and collect NFTs</p>
-                <div id="explore_button"><a href="index.php?action=marketPlace&controller=Utilisateur">Explore</a></div>
+                <p class="title">Le monde des NFT en quelques clics</p>
+                <p class="title">Trouvez des œuvres d'art numériques rares et collectionnez les NFT</p>
+                <div id="explore_button"><a href="index.php?action=marketPlace&controller=Utilisateur">Explorer</a></div>
             </div>
             <img src="ressources/rocket-dynamic-color.png" id="rocket">
         </article>
@@ -22,17 +22,17 @@ require_once File::build_path(array("Controller", "routeur.php"));
         <div id="welcome-numbers">
             <div class="welcome-card">
                 <h2>17K +</h2>
-                <p>World art</p>
+                <p>Oeuvres d'art</p>
             </div>
 
             <div class="welcome-card">
                 <h2>12K +</h2>
-                <p>Exclusive product</p>
+                <p>Produits exclusifs</p>
             </div>
 
             <div class="welcome-card">
                 <h2>8K +</h2>
-                <p>Artist</p>
+                <p>Artistes</p>
             </div>
         </div>
 
@@ -45,7 +45,7 @@ require_once File::build_path(array("Controller", "routeur.php"));
 </form>
 
 
-    <h2>Popular products</h2>
+    <h2>Produits populaires</h2>
 
     <section id="popular">
         <?php

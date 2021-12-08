@@ -9,47 +9,75 @@ class ControllerProduit
 
     public static function readAll()
     {
-        $tab_p = ModelProduit::selectAll();     //appel au modèle pour gerer la BD
+        if ($_SESSION['admin'] == 1) {
+            $tab_p = ModelProduit::selectAll();     //appel au modèle pour gerer la BD
 
-        $controller = static::$object;
-        $view = 'list';
-        $pagetitle = 'Liste des produits';
+            $controller = static::$object;
+            $view = 'list';
+            $pagetitle = 'Liste des produits';
 
-        $list = File::build_path(array("View", "view.php"));
-        require $list;
+            $list = File::build_path(array("View", "view.php"));
+            require $list;
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        }
+        
     }
 
     public static function read()
     {
 
-        $p = ModelProduit::select($_GET['idProduit']); //on récupère le produit
-        $controller = static::$object;
+        if ($_SESSION['admin'] == 1) {
+            $p = ModelProduit::select($_GET['idProduit']); //on récupère le produit
+            $controller = static::$object;
 
-        if ($p == null) { //si il est null on retourne une erreur
+            if ($p == null) { //si il est null on retourne une erreur
 
-            $view = "error";
-            $pagetitle = "Erreur Produit";
-            $erreur = File::build_path(array("View", "view.php"));
-            require $erreur;
+                $view = "error";
+                $pagetitle = "Erreur Produit";
+                $erreur = File::build_path(array("View", "view.php"));
+                require $erreur;
 
-        } else { //sinon on va afficher l'article
+            } else { //sinon on va afficher l'article
 
-            $view = 'detail';
-            $pagetitle = 'Détail de l\'article';
-            $detail = File::build_path(array("View", "view.php"));
-            require $detail;
+                $view = 'detail';
+                $pagetitle = 'Détail de l\'article';
+                $detail = File::build_path(array("View", "view.php"));
+                require $detail;
+            }
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
         }
+
+        
     }
 
     public static function create()
     {
-        $controller = 'produit';
-        $tab_categorie = ModelCategorie::selectAll();
-        $view = 'update';
-        $action = "created";
-        $pagetitle = 'Création d\'un produit';
+        if ($_SESSION['admin'] == 1) {
+            $controller = 'produit';
+            $tab_categorie = ModelCategorie::selectAll();
+            $view = 'update';
+            $action = "created";
+            $pagetitle = 'Création d\'un produit';
 
-        require_once File::build_path(array("View", "view.php"));
+            require_once File::build_path(array("View", "view.php"));
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        }
+        
     }
 
     public static function created()
@@ -78,30 +106,48 @@ class ControllerProduit
 
     public static function delete()
     {
-        $idP = $_GET['idProduit'];
+        if ($_SESSION['admin'] == 1) {
+            $idP = $_GET['idProduit'];
 
-        $p = ModelProduit::select($idP);
-        $p->delete($idP);
+            $p = ModelProduit::select($idP);
+            $p->delete($idP);
 
-        $tab_p = ModelProduit::selectAll();
+            $tab_p = ModelProduit::selectAll();
 
-        $controller = 'produit';
-        $view = 'deleted';
-        $pagetitle = 'Supprimer un produit';
-        require_once File::build_path(array("View", "view.php"));
+            $controller = 'produit';
+            $view = 'deleted';
+            $pagetitle = 'Supprimer un produit';
+            require_once File::build_path(array("View", "view.php"));
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        }
+        
     }
 
     public static function update()
     {
-        $controller = static::$object;
-        $idProduit = $_GET['idProduit'];
-        $idCategorie = $_GET['idCategorie'];
-        $tab_categorie = ModelCategorie::selectAll();
+        if ($_SESSION['admin'] == 1) {
+            $controller = static::$object;
+            $idProduit = $_GET['idProduit'];
+            $idCategorie = $_GET['idCategorie'];
+            $tab_categorie = ModelCategorie::selectAll();
 
-        $view = "update";
-        $pagetitle = "Mise à jour d'un produit";
-        $action = "updated";
-        require_once File::build_path(array("View", "view.php"));
+            $view = "update";
+            $pagetitle = "Mise à jour d'un produit";
+            $action = "updated";
+            require_once File::build_path(array("View", "view.php"));
+        } else {
+            $controller = "utilisateur";
+            $view = "connect";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
+            $list = File::build_path(array("View","view.php"));
+            require $list;
+        }
+        
     }
 
     public static function updated()
@@ -137,7 +183,6 @@ class ControllerProduit
     public static function search(){
         $recherche = $_POST['recherche'];
         $resulat = ModelProduit::search($recherche);
-//        echo var_dump($resulat);
         $p = ModelProduit::select($resulat);
         $controller = self::$object;
         $view = 'search';
