@@ -11,7 +11,7 @@
 
 
 <nav>
-    <a href="index.php"><h1>NFT Factory</h1></a>
+    <a href="index.php"><h1>L'usine NFT</h1></a>
     <ul>
         <li><a href="index.php">Accueil</a></li>
         <li><a href="index.php?action=marketPlace&controller=Utilisateur">Boutique</a></li>
@@ -44,7 +44,7 @@
 
 
 <?php
-    require_once File::build_path(array("View", $controller, "$view.php"));
+require_once File::build_path(array("View", $controller, "$view.php"));
 ?>
 
 

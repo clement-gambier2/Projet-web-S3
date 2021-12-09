@@ -84,6 +84,7 @@ class ControllerCommande {
     public static function delete(){
         $idCommande = $_GET["idCommande"];
         $tab_com = ModelProduit::selectAll();
+
         if ($_SESSION['admin'] == 1 && ModelCommande::delete($idCommande)) {
             if(isset($_GET['mesCommande'])){
                 $user = ModelUtilisateur::selectWithPseudo($_SESSION['login']);

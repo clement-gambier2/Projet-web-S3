@@ -89,6 +89,8 @@ class ControllerProduit
             "descriptionProduit" => $_POST["descriptionProduit"],
             "idCategorie" => $_POST["idCategorie"],
             "prixProduit" => $_POST["prixProduit"],
+            "lienImage" => $_POST['lienImage']
+
         );
         if (ModelProduit::save($data)) {
             $tab_p = ModelProduit::selectAll();
