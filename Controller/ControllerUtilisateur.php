@@ -22,7 +22,7 @@ class ControllerUtilisateur {
         } else {
             $controller = "utilisateur";
             $view = "connect";
-            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
             $list = File::build_path(array("View", "view.php"));
             require $list;
         }
@@ -63,7 +63,7 @@ class ControllerUtilisateur {
         } else {
             $controller = "utilisateur";
             $view = "connect";
-            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
             $list = File::build_path(array("View","view.php"));
             require $list;
         }
@@ -164,7 +164,7 @@ class ControllerUtilisateur {
         } else {
             $controller = "utilisateur";
             $view = "connect";
-            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
             $list = File::build_path(array("View","view.php"));
             require $list;
         }
@@ -215,52 +215,56 @@ class ControllerUtilisateur {
     }
 
     public static function connected(){
-            if (!isset($_POST['pseudo']) || !isset($_POST['motDePasse'])) {
-                $controller = self::$object;
-                $view = 'error';
-                $pagetitle = 'Erreur de connexion';
-                require_once File::build_path(array("View", "view.php"));
-            }
+        if (!isset($_POST['pseudo']) || !isset($_POST['motDePasse'])) {
+            $controller = self::$object;
+            $view = 'error';
+            $pagetitle = 'Erreur de connexion';
+            require_once File::build_path(array("View", "view.php"));
+        }
 
-            $pseudo = $_POST['pseudo'];
-            $mdp = Security::hacher($_POST['motDePasse']);
+        $pseudo = $_POST['pseudo'];
+        $mdp = Security::hacher($_POST['motDePasse']);
 
-            if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
-                if (ModelUtilisateur::checkMail($pseudo)) {
-                    $_SESSION['login'] = $pseudo;
+        if(ModelUtilisateur::checkPassword($pseudo, $mdp)) {
+            if (ModelUtilisateur::checkMail($pseudo)) {
+                $_SESSION['login'] = $pseudo;
 
-                    if (ModelUtilisateur::isAdmin($pseudo)) {
-                        $_SESSION['admin'] = 1;
-                        $controller = 'admin';
-                        $view = 'list';
-                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                        $action='afficher';
-                        require_once File::build_path(array("View", "view.php"));
-                    }
-                    else {
-                        $_SESSION['admin'] = 0;
-                        $controller = 'static';
-                        $view = 'home';
-                        $pagetitle = 'Bienvenue ' . $pseudo . ' !';
-                        require_once File::build_path(array("View", "view.php"));
-                    }
-                } else {
-
-                    $controller = self::$object;
-                    $view = 'error';
-                    $pagetitle = 'Mauvais mot de passe';
-                    echo "Veuillez vérifier votre adresse mail";
+                if (ModelUtilisateur::isAdmin($pseudo)) {
+                    $_SESSION['admin'] = 1;
+                    $controller = 'admin';
+                    $view = 'list';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    $action='afficher';
                     require_once File::build_path(array("View", "view.php"));
                 }
-                
-                
+                else {
+                    $_SESSION['admin'] = 0;
+                    $controller = 'static';
+                    $view = 'home';
+                    $pagetitle = 'Bienvenue ' . $pseudo . ' !';
+                    require_once File::build_path(array("View", "view.php"));
+                }
+            } else {
+
+                $controller = static::$object;
+                $view = "connect";
+                $pagetitle = "Se connecter à un compte";
+                $action = "connect";
+                require_once File::build_path(array("View","view.php"));
+                echo "Veuillez vérifier votre adresse mail";
             }
-            else {
-                $controller = self::$object;
-                $view = 'error';
-                $pagetitle = 'Mauvais mot de passe';
-                require_once File::build_path(array("View", "view.php"));
-            }
+            
+            
+        }
+        else {
+            echo "Le mot de passe ou le pseudo n'est pas bon";
+            $controller = static::$object;
+            $view = "connect";
+            $pagetitle = "Se connecter à un compte";
+            $action = "connect";
+            require_once File::build_path(array("View","view.php"));
+            
+        }
     }
 
     public static function validate() {
@@ -324,7 +328,7 @@ class ControllerUtilisateur {
         } else {
             $controller = "utilisateur";
             $view = "connect";
-            $pagetitle = "Connectez vous pour accéder au panel admin";
+            $pagetitle = "Connectez vous pour accéder à cette fonctionnalité admin";
             $list = File::build_path(array("View","view.php"));
             require $list;
         }
